@@ -20,7 +20,8 @@
         </Grid.RenderTransform>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="867*"/>
+            <ColumnDefinition Width="200*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.Resources>
@@ -53,7 +54,7 @@
         </Grid.Resources>
 
 
-        <s3D:SciChart3DSurface Grid.ColumnSpan="2" Margin="0,0,800,0"
+        <s3D:SciChart3DSurface Grid.ColumnSpan="2" Margin="0,20,600,20"
                                Style ="{StaticResource SciChartSurfaceStyle}">
             <s3D:SciChart3DSurface.Camera>
                 <s3D:Camera3D ZoomToFitOnAttach="True"
@@ -263,60 +264,67 @@
         <CheckBox x:Name="checkBox9" Content="f(x/S2)" Grid.Column="1" HorizontalAlignment="Left" Margin="516,63,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox x:Name="checkBox10" Content="f(y/S1)" Grid.Column="1" HorizontalAlignment="Left" Margin="516,83,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox x:Name="checkBox11" Content="f(y/S2)" Grid.Column="1" HorizontalAlignment="Left" Margin="516,103,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <Button x:Name="button1" Content="Рассчитать пороговое значение из min среднего риска" Grid.Column="1" HorizontalAlignment="Left" Margin="733,268,0,0" VerticalAlignment="Top" Click="button1_Click"/>
-        <Label x:Name="label16" Content="C11" Grid.Column="1" HorizontalAlignment="Left" Margin="733,41,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox12" Grid.Column="1" HorizontalAlignment="Left" Margin="793,44,0,0" Text="-1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
-        <Label x:Name="label17" Content="C22" Grid.Column="1" HorizontalAlignment="Left" Margin="733,64,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox13" Grid.Column="1" HorizontalAlignment="Left" Margin="793,67,0,0" Text="-1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
-        <Label x:Name="label18" Content="C12>0" Grid.Column="1" HorizontalAlignment="Left" Margin="733,109,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox14" Grid.Column="1" HorizontalAlignment="Left" Margin="793,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="label19" Content="C21>0" Grid.Column="1" HorizontalAlignment="Left" Margin="733,132,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox15" Grid.Column="1" HorizontalAlignment="Left" Margin="793,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="label20" Content="C12(пропуск цели) >> С21(ложная тревога)" Grid.Column="1" HorizontalAlignment="Left" Margin="733,86,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label21" Content="p1" Grid.Column="1" HorizontalAlignment="Left" Margin="733,209,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label25" Content="p2" Grid.Column="1" HorizontalAlignment="Left" Margin="733,229,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox16" Grid.Column="1" HorizontalAlignment="Left" Margin="793,212,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="textBox19" Grid.Column="1" HorizontalAlignment="Left" Margin="793,235,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="button1" Content="Рассчитать пороговое значение из min среднего риска" Grid.Column="1" HorizontalAlignment="Left" Margin="733,293,0,0" VerticalAlignment="Top" Click="button1_Click" Grid.ColumnSpan="2"/>
+        <Label x:Name="label16" Content="C11" Grid.Column="1" HorizontalAlignment="Left" Margin="733,66,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox12" Grid.Column="1" HorizontalAlignment="Left" Margin="793,69,0,0" Text="-1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" Grid.ColumnSpan="2"/>
+        <Label x:Name="label17" Content="C22" Grid.Column="1" HorizontalAlignment="Left" Margin="733,89,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox13" Grid.Column="1" HorizontalAlignment="Left" Margin="793,92,0,0" Text="-1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" Grid.ColumnSpan="2"/>
+        <Label x:Name="label18" Content="C12>0" Grid.Column="1" HorizontalAlignment="Left" Margin="733,134,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox14" Grid.Column="1" HorizontalAlignment="Left" Margin="793,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+        <Label x:Name="label19" Content="C21>0" Grid.Column="1" HorizontalAlignment="Left" Margin="733,157,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox15" Grid.Column="1" HorizontalAlignment="Left" Margin="793,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+        <Label x:Name="label20" Content="C12(пропуск цели) >> С21(ложная тревога)" Grid.Column="1" HorizontalAlignment="Left" Margin="733,111,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label x:Name="label21" Content="p1" Grid.Column="1" HorizontalAlignment="Left" Margin="733,234,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label25" Content="p2" Grid.Column="1" HorizontalAlignment="Left" Margin="733,254,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox16" Grid.Column="1" HorizontalAlignment="Left" Margin="793,237,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="textBox19" Grid.Column="1" HorizontalAlignment="Left" Margin="793,260,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
         <TextBox x:Name="textBox17" Grid.Column="1" HorizontalAlignment="Left" Height="401" Margin="279,564,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="414" RenderTransformOrigin="0.5,0.5" ScrollViewer.CanContentScroll="True"></TextBox>
-        <Label x:Name="label22" Content="Априорное значения задаваемое пользователем" Grid.Column="1" HorizontalAlignment="Left" Margin="733,163,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label23" Content="Цены рисков" Grid.Column="1" HorizontalAlignment="Left" Margin="735,15,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label24" Content="X(пор.)" Grid.Column="1" HorizontalAlignment="Left" Margin="733,316,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="button2" Content="Рассчитать пороговое значение из min числа ош. решений" Grid.Column="1" HorizontalAlignment="Left" Margin="719,362,0,0" VerticalAlignment="Top" Click="button2_Click"/>
-        <Label x:Name="label10" Content="p1 &gt;&gt; p2" Grid.Column="1" HorizontalAlignment="Left" Margin="733,183,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label11" Content="X(пор.)" Grid.Column="1" HorizontalAlignment="Left" Margin="735,402,0,0" VerticalAlignment="Top"/>
-        <Border BorderThickness="1" BorderBrush="Black" Grid.Column="1" HorizontalAlignment="Left" Height="408" Margin="714,20,0,0" VerticalAlignment="Top" Width="342"/>
-        <Label x:Name="label12" Content="f(x/S)" Grid.Column="1" HorizontalAlignment="Left" Margin="729,-6,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <Button x:Name="button3" Content="Рассчитать пороговое значение из min среднего риска" Grid.Column="1" HorizontalAlignment="Left" Margin="737,725,0,0" VerticalAlignment="Top" Click="button3_Click"/>
+        <Label x:Name="label22" Content="Априорное значения задаваемое пользователем" Grid.Column="1" HorizontalAlignment="Left" Margin="733,188,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label x:Name="label23" Content="Цены рисков" Grid.Column="1" HorizontalAlignment="Left" Margin="735,40,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label24" Content="X(пор.)" Grid.Column="1" HorizontalAlignment="Left" Margin="733,341,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="button2" Content="Рассчитать пороговое значение из min числа ош. решений" Grid.Column="1" HorizontalAlignment="Left" Margin="719,387,0,0" VerticalAlignment="Top" Click="button2_Click" Grid.ColumnSpan="2"/>
+        <Label x:Name="label10" Content="p1 &gt;&gt; p2" Grid.Column="1" HorizontalAlignment="Left" Margin="733,208,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label11" Content="X(пор.)" Grid.Column="1" HorizontalAlignment="Left" Margin="735,427,0,0" VerticalAlignment="Top"/>
+        <Border BorderThickness="1" BorderBrush="Black" Grid.Column="1" HorizontalAlignment="Left" Height="408" Margin="714,43,0,0" VerticalAlignment="Top" Width="342" Grid.ColumnSpan="2"/>
+        <Label x:Name="label12" Content="f(x/S)" Grid.Column="1" HorizontalAlignment="Left" Margin="729,17,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Button x:Name="button3" Content="Рассчитать пороговое значение из min среднего риска" Grid.Column="1" HorizontalAlignment="Left" Margin="737,725,0,0" VerticalAlignment="Top" Click="button3_Click" Grid.ColumnSpan="2"/>
         <Label x:Name="label16_Copy" Content="C11" Grid.Column="1" HorizontalAlignment="Left" Margin="737,498,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox12_Copy" Grid.Column="1" HorizontalAlignment="Left" Margin="797,501,0,0" Text="-1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <TextBox x:Name="textBox12_Copy" Grid.Column="1" HorizontalAlignment="Left" Margin="797,501,0,0" Text="-1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" Grid.ColumnSpan="2"/>
         <Label x:Name="label17_Copy" Content="C22" Grid.Column="1" HorizontalAlignment="Left" Margin="737,521,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox13_Copy" Grid.Column="1" HorizontalAlignment="Left" Margin="797,524,0,0" Text="-1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <TextBox x:Name="textBox13_Copy" Grid.Column="1" HorizontalAlignment="Left" Margin="797,524,0,0" Text="-1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" Grid.ColumnSpan="2"/>
         <Label x:Name="label18_Copy" Content="C12&gt;0" Grid.Column="1" HorizontalAlignment="Left" Margin="737,566,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox14_Copy" Grid.Column="1" HorizontalAlignment="Left" Margin="797,569,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBox14_Copy" Grid.Column="1" HorizontalAlignment="Left" Margin="797,569,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
         <Label x:Name="label19_Copy" Content="C21&gt;0" Grid.Column="1" HorizontalAlignment="Left" Margin="737,589,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox15_Copy" Grid.Column="1" HorizontalAlignment="Left" Margin="797,592,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="label20_Copy" Content="C12(пропуск цели) &gt;&gt; С21(ложная тревога)" Grid.Column="1" HorizontalAlignment="Left" Margin="737,543,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox15_Copy" Grid.Column="1" HorizontalAlignment="Left" Margin="797,592,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+        <Label x:Name="label20_Copy" Content="C12(пропуск цели) &gt;&gt; С21(ложная тревога)" Grid.Column="1" HorizontalAlignment="Left" Margin="737,543,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <Label x:Name="label21_Copy" Content="p1" Grid.Column="1" HorizontalAlignment="Left" Margin="737,666,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label25_Copy" Content="p2" Grid.Column="1" HorizontalAlignment="Left" Margin="737,686,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox16_Copy" Grid.Column="1" HorizontalAlignment="Left" Margin="797,669,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="textBox19_Copy" Grid.Column="1" HorizontalAlignment="Left" Margin="797,692,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="label22_Copy" Content="Априорное значения задаваемое пользователем" Grid.Column="1" HorizontalAlignment="Left" Margin="737,620,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox16_Copy" Grid.Column="1" HorizontalAlignment="Left" Margin="797,669,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="textBox19_Copy" Grid.Column="1" HorizontalAlignment="Left" Margin="797,692,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+        <Label x:Name="label22_Copy" Content="Априорное значения задаваемое пользователем" Grid.Column="1" HorizontalAlignment="Left" Margin="737,620,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <Label x:Name="label23_Copy" Content="Цены рисков" Grid.Column="1" HorizontalAlignment="Left" Margin="739,472,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label24_Copy" Content="Y(пор.)" Grid.Column="1" HorizontalAlignment="Left" Margin="737,773,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="button4" Content="Рассчитать пороговое значение из min числа ош. решений" Grid.Column="1" HorizontalAlignment="Left" Margin="723,808,0,0" VerticalAlignment="Top" Click="button4_Click"/>
+        <Button x:Name="button4" Content="Рассчитать пороговое значение из min числа ош. решений" Grid.Column="1" HorizontalAlignment="Left" Margin="723,808,0,0" VerticalAlignment="Top" Click="button4_Click" Grid.ColumnSpan="2"/>
         <Label x:Name="label10_Copy" Content="p1 &gt;&gt; p2" Grid.Column="1" HorizontalAlignment="Left" Margin="737,640,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label11_Copy" Content="Y(пор.)" Grid.Column="1" HorizontalAlignment="Left" Margin="737,835,0,0" VerticalAlignment="Top"/>
-        <Border BorderThickness="1" BorderBrush="Black" Grid.Column="1" HorizontalAlignment="Left" Height="408" Margin="714,477,0,0" VerticalAlignment="Top" Width="342"/>
+        <Border BorderThickness="1" BorderBrush="Black" Grid.Column="1" HorizontalAlignment="Left" Height="408" Margin="714,477,0,0" VerticalAlignment="Top" Width="342" Grid.ColumnSpan="2"/>
         <Label x:Name="label12_Copy" Content="f(y/S)" Grid.Column="1" HorizontalAlignment="Left" Margin="733,451,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <Label x:Name="label13" Content="Критерий Зигерта-Котельникова" Grid.Column="1" HorizontalAlignment="Left" Margin="714,890,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label13" Content="Критерий Зигерта-Котельникова" Grid.Column="1" HorizontalAlignment="Left" Margin="714,890,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <Label x:Name="label26" Content="X" Grid.Column="1" HorizontalAlignment="Left" Margin="719,916,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label27" Content="Y" Grid.Column="1" HorizontalAlignment="Left" Margin="719,942,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="textBox18" Grid.Column="1" HorizontalAlignment="Left" Margin="745,920,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="textBox20" Grid.Column="1" HorizontalAlignment="Left" Margin="745,947,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="button5" Content="Проверить X" Grid.Column="1" HorizontalAlignment="Left" Margin="980,920,0,0" VerticalAlignment="Top" Click="button5_Click"/>
-        <Button x:Name="button6" Content="Проверить Y" Grid.Column="1" HorizontalAlignment="Left" Margin="980,948,0,0" VerticalAlignment="Top" Click="button6_Click"/>
-        <Label x:Name="label28" Content="принадлежит" Grid.Column="1" HorizontalAlignment="Left" Margin="868,916,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label29" Content="принадлежит" Grid.Column="1" HorizontalAlignment="Left" Margin="868,942,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="button5" Content="Проверить X" Grid.Column="2" HorizontalAlignment="Left" Margin="113,920,0,0" VerticalAlignment="Top" Click="button5_Click"/>
+        <Button x:Name="button6" Content="Проверить Y" Grid.Column="2" HorizontalAlignment="Left" Margin="113,948,0,0" VerticalAlignment="Top" Click="button6_Click"/>
+        <Label x:Name="label28" Content="принадлежит" Grid.Column="2" HorizontalAlignment="Left" Margin="1,916,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label29" Content="принадлежит" Grid.Column="2" HorizontalAlignment="Left" Margin="1,942,0,0" VerticalAlignment="Top"/>
+        <Menu x:Name="menu" HorizontalAlignment="Left" Height="20" Margin="0,0,0,0" VerticalAlignment="Top" Width="1912" Grid.ColumnSpan="3">
+            <Button Content="Указания к лабораторной работе" />
+            <Button Content="Сведения о программе"/>
+            <Button Content="Руководство пользователя"/>
+            <Button x:Name="button7" Content="Выйти из программы" Click="button7_Click"/>
+        </Menu>
+
 
     </Grid>
 </Window>

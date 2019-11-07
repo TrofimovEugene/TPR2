@@ -30,10 +30,6 @@ namespace TPR2
 		int n_2 = 0;
 		public MainWindow()
 		{
-			DispatcherTimer timer = new DispatcherTimer();
-			timer.Tick += new EventHandler(timer_Tick);
-			timer.Interval = new TimeSpan(100);
-			//timer.Start();
 			var sciChart3DSurface = new SciChart3DSurface()
 			{
 				IsAxisCubeVisible = true,
@@ -49,6 +45,28 @@ namespace TPR2
 					 new OrbitModifier3D(),
 					 new ZoomExtentsModifier3D());
 			InitializeComponent();
+		}
+		// вычисление диспресии по X
+		private double DispersionX(List<Point> points, double average)
+		{
+			double result = 0.0;
+			foreach (Point point in points)
+			{
+				result += (point.Return_Value_x() - average) * (point.Return_Value_x() - average);
+			}
+			result = result / points.Count;
+			return result;
+		}
+		// вычисление диспресии по Y
+		private double DispersionY(List<Point> points, double average)
+		{
+			double result = 0.0;
+			foreach (Point point in points)
+			{
+				result += (point.Return_Value_y() - average) * (point.Return_Value_y() - average);
+			}
+			result = result / points.Count;
+			return result;
 		}
 		// функция Гаусса для нормального распределения
 		private double func_Gauss(double x, double sigma, double mu)
@@ -92,10 +110,7 @@ namespace TPR2
 			double sigma_1_y = 0.0;
 			double sigma_2_x = 0.0;
 			double sigma_2_y = 0.0;
-			double x_cen = 0.0;
-			double y_cen = 0.0;
 			string input_buffer;
-
 			try
 			{
 				// ввод исходных данных
@@ -156,7 +171,7 @@ namespace TPR2
 			{
 				cov_1 += (set_p_1[j].Return_Value_x() - mu_1_x) * (set_p_1[j].Return_Value_y() - mu_1_y);
 			}
-			cov_1 = cov_1 / n_1;
+			cov_1 = cov_1 / (n_1-1);
 			double r = cov_1 / (sigma_1_x * sigma_1_y);
 			double k = 1 / (2 * Math.PI * sigma_1_x * sigma_1_y * Math.Sqrt(1 - r * r));
 			for (int i = 0; i < n_1; i++)
@@ -184,7 +199,7 @@ namespace TPR2
 			{
 				cov_2 += (set_p_2[j].Return_Value_x() - mu_2_x) * (set_p_2[j].Return_Value_y() - mu_2_y);
 			}
-			cov_2 = cov_2 / n_2;
+			cov_2 = cov_2 / (n_2-1);
 			double r_2 = cov_2 / (sigma_2_x * sigma_2_y);
 			double k_2 = 1 / (2 * Math.PI * sigma_2_x * sigma_2_y * Math.Sqrt(1 - r * r));
 			for (int i = 0; i < n_2; i++)
@@ -206,7 +221,6 @@ namespace TPR2
 			Column6.DataSeries = xyzDataSeries3D_8;
 
 			// построение плотностей проекций множеств S1 и S2
-
 			average_x1 = set1.calculate_Average_Value_x();
 			average_y1 = set1.calculate_Average_Value_y();
 			double dispersion_x1 = 0.0;
@@ -216,87 +230,53 @@ namespace TPR2
 			double dispersion_x2 = 0.0;
 			double dispersion_y2 = 0.0;
 			// построение плотности проекции f(x/S1)
-			for (int i = 0; i < n_1; i++)
-			{
-				dispersion_x1 += Math.Pow(set_p_1[i].Return_Value_x() - average_x1, 2);
-			}
-			dispersion_x1 = dispersion_x1 / n_1;
+			dispersion_x1 = DispersionX(set_p_1, average_x1);
 			sigma_x1 = Math.Sqrt(dispersion_x1);
 			double x1 = average_x1 - sigma_x1*3;
 			for (int i = 0; i < n_1*18; i++)
 			{
 				x1 += sigma_x1 / (n_1*3);
 				double f_x = func_Gauss(x1, sigma_1_x, average_x1);
-				f_x_S1.Add(new Point(x1, 0, f_x)
-				{
-					sigma_x = sigma_x1,
-					mu_x = average_x1
-				});
+				f_x_S1.Add(new Point(x1, 0, f_x));
 				xyzDataSeries3D_9.Append(x1, f_x, 0);
 			}
 			xyzDataSeries3D_9.SeriesName = "f(x/S1)";
 			PointLineSeries3D.DataSeries = xyzDataSeries3D_9;
 			// построение плотности проекции f(x/S2)
-			for (int i = 0; i < n_2; i++)
-			{
-				dispersion_x2 += Math.Pow(set_p_2[i].Return_Value_x() - average_x2, 2);
-			}
-			dispersion_x2 = dispersion_x2 / n_2;
+			dispersion_x2 = DispersionX(set_p_2, average_x2);
 			sigma_x2 = Math.Sqrt(dispersion_x2);
 			double x2 = average_x2 - sigma_x2 * 3;
 			for (int i = 0; i < n_2 * 18; i++)
 			{
 				x2 += sigma_x2 / (n_2 * 3);
 				double f_x = func_Gauss(x2, sigma_x2, average_x2);
-				f_x_S2.Add(new Point(x2, 0, f_x) {
-					sigma_x = sigma_x2,
-					mu_x = average_x2
-
-				});
+				f_x_S2.Add(new Point(x2, 0, f_x));
 				xyzDataSeries3D_10.Append(x2, f_x, 0);
 			}
 			xyzDataSeries3D_10.SeriesName = "f(x/S2)";
 			PointLineSeries3D_1.DataSeries = xyzDataSeries3D_10;
 			// построение плотности проекции f(y/S1)
-			for (int i = 0; i < n_1; i++)
-			{
-				dispersion_y1 += Math.Pow(set_p_1[i].Return_Value_y() - average_y1, 2);
-			}
-			dispersion_y1 = dispersion_y1 / n_1;
+			dispersion_y1 = DispersionY(set_p_1, average_y1);
 			sigma_y1 = Math.Sqrt(dispersion_y1);
 			double y1 = average_y1 - sigma_y1 * 3;
 			for (int i = 0; i < n_1*18; i++)
 			{
 				y1 += sigma_y1 / (n_1 * 3);
 				double f_x = func_Gauss(y1, sigma_y1, average_y1);
-				f_y_S1.Add(new Point(0, y1, f_x)
-				{
-					sigma_y = sigma_y1,
-					mu_y = average_y1
-
-				});
+				f_y_S1.Add(new Point(0, y1, f_x));
 				xyzDataSeries3D_11.Append(0, f_x, y1);
 			}
 			xyzDataSeries3D_11.SeriesName = "f(y/S1)";
 			PointLineSeries3D_2.DataSeries = xyzDataSeries3D_11;
 			// построение плотности проекции f(y/S2)
-			for (int i = 0; i < n_2; i++)
-			{
-				dispersion_y2 += Math.Pow(set_p_2[i].Return_Value_y() - average_y2, 2);
-			}
-			dispersion_y2 = dispersion_y2 / n_2;
+			dispersion_y2 = DispersionY(set_p_2, average_y2);
 			sigma_y2 = Math.Sqrt(dispersion_y2);
 			double y2 = average_y2 - sigma_y2 * 3;
 			for (int i = 0; i < n_2 * 18; i++)
 			{
 				y2 += sigma_y2 / (n_2 * 3);
 				double f_x = func_Gauss(y2, sigma_y2, average_y2);
-				f_y_S2.Add(new Point(0, y2, f_x)
-				{
-					sigma_y = sigma_y2,
-					mu_y = average_y2
-
-				});
+				f_y_S2.Add(new Point(0, y2, f_x));
 				xyzDataSeries3D_12.Append(0, f_x, y2);
 			}
 			xyzDataSeries3D_12.SeriesName = "f(y/S2)";
@@ -318,104 +298,6 @@ namespace TPR2
 								+ "f(x,y)= " + point.Return_Value_z().ToString() + "\n\n";
 			}
 		} 
-		private void timer_Tick(object sender, EventArgs e)
-		{
-			if (checkBox.IsChecked == true)
-			{
-				ScatterSeries3D_1.IsVisible = true;
-			} else
-			{
-				ScatterSeries3D_1.IsVisible = false;
-			}
-			if (checkBox1.IsChecked == true)
-			{
-				ScatterSeries3D_2.IsVisible = true;
-			}
-			else
-			{
-				ScatterSeries3D_2.IsVisible = false;
-			}
-			if (checkBox2.IsChecked == true)
-			{
-				Column1.IsVisible = true;
-			}
-			else
-			{
-				Column1.IsVisible = false;
-			}
-			if (checkBox3.IsChecked == true)
-			{
-				Column2.IsVisible = true;
-			}
-			else
-			{
-				Column2.IsVisible = false;
-			}
-			if (checkBox4.IsChecked == true)
-			{
-				Column3.IsVisible = true;
-			}
-			else
-			{
-				Column3.IsVisible = false;
-			}
-			if (checkBox5.IsChecked == true)
-			{
-				Column5.IsVisible = true;
-			}
-			else
-			{
-				Column5.IsVisible = false;
-			}
-			if (checkBox6.IsChecked == true)
-			{
-				Column4.IsVisible = true;
-			}
-			else
-			{
-				Column4.IsVisible = false;
-			}
-			if (checkBox7.IsChecked == true)
-			{
-				Column6.IsVisible = true;
-			}
-			else
-			{
-				Column6.IsVisible = false;
-			}
-			if (checkBox8.IsChecked == true)
-			{
-				PointLineSeries3D.IsVisible = true;
-			}
-			else
-			{
-				PointLineSeries3D.IsVisible = false;
-			}
-			if (checkBox9.IsChecked == true)
-			{
-				PointLineSeries3D_1.IsVisible = true;
-			}
-			else
-			{
-				PointLineSeries3D_1.IsVisible = false;
-			}
-			if (checkBox10.IsChecked == true)
-			{
-				PointLineSeries3D_2.IsVisible = true;
-			}
-			else
-			{
-				PointLineSeries3D_2.IsVisible = false;
-			}
-			if (checkBox11.IsChecked == true)
-			{
-				PointLineSeries3D_3.IsVisible = true;
-			}
-			else
-			{
-				PointLineSeries3D_3.IsVisible = false;
-			}
-		}
 		/*Определение порогового значения x по условию минимума среднего риска*/
 		private void button1_Click(object sender, RoutedEventArgs e)
 		{
@@ -429,16 +311,22 @@ namespace TPR2
 			double p1 = 0.0;
 			double p2 = 0.0;
 			string input_buffer;
-			// ввод исходных данных
-			// ввод стоимости ошибок
-			input_buffer = textBox14.Text;
-			C12 = Convert.ToDouble(input_buffer);
-			input_buffer = textBox15.Text;
-			C21 = Convert.ToDouble(input_buffer);
-			input_buffer = textBox16.Text;
-			p1 = Convert.ToDouble(input_buffer);
-			input_buffer = textBox19.Text;
-			p2 = Convert.ToDouble(input_buffer);
+			try
+			{
+				// ввод исходных данных
+				// ввод стоимости ошибок
+				input_buffer = textBox14.Text;
+				C12 = Convert.ToDouble(input_buffer);
+				input_buffer = textBox15.Text;
+				C21 = Convert.ToDouble(input_buffer);
+				input_buffer = textBox16.Text;
+				p1 = Convert.ToDouble(input_buffer);
+				input_buffer = textBox19.Text;
+				p2 = Convert.ToDouble(input_buffer);
+			} catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
 			List<Point> points = new List<Point>();
 			points = f_x_S1;
 			points.AddRange(f_x_S2);
@@ -477,11 +365,17 @@ namespace TPR2
 			double p1 = 0.0;
 			double p2 = 0.0;
 			string input_buffer;
-			// ввод исходных данных
-			input_buffer = textBox16.Text;
-			p1 = Convert.ToDouble(input_buffer);
-			input_buffer = textBox19.Text;
-			p2 = Convert.ToDouble(input_buffer);
+			try
+			{
+				// ввод исходных данных
+				input_buffer = textBox16.Text;
+				p1 = Convert.ToDouble(input_buffer);
+				input_buffer = textBox19.Text;
+				p2 = Convert.ToDouble(input_buffer);
+			} catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
 			List<Point> points = new List<Point>();
 			points = f_x_S1;
 			points.AddRange(f_x_S2);
@@ -522,16 +416,22 @@ namespace TPR2
 			double p1 = 0.0;
 			double p2 = 0.0;
 			string input_buffer;
-			// ввод исходных данных
-			// ввод стоимости ошибок
-			input_buffer = textBox14_Copy.Text;
-			C12 = Convert.ToDouble(input_buffer);
-			input_buffer = textBox15_Copy.Text;
-			C21 = Convert.ToDouble(input_buffer);
-			input_buffer = textBox16_Copy.Text;
-			p1 = Convert.ToDouble(input_buffer);
-			input_buffer = textBox19_Copy.Text;
-			p2 = Convert.ToDouble(input_buffer);
+			try
+			{
+				// ввод исходных данных
+				// ввод стоимости ошибок
+				input_buffer = textBox14_Copy.Text;
+				C12 = Convert.ToDouble(input_buffer);
+				input_buffer = textBox15_Copy.Text;
+				C21 = Convert.ToDouble(input_buffer);
+				input_buffer = textBox16_Copy.Text;
+				p1 = Convert.ToDouble(input_buffer);
+				input_buffer = textBox19_Copy.Text;
+				p2 = Convert.ToDouble(input_buffer);
+			} catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
 			List<Point> points = new List<Point>();
 			points = f_y_S1;
 			points.AddRange(f_y_S2);
@@ -569,11 +469,17 @@ namespace TPR2
 			double p1 = 0.0;
 			double p2 = 0.0;
 			string input_buffer;
-			// ввод исходных данных
-			input_buffer = textBox16_Copy.Text;
-			p1 = Convert.ToDouble(input_buffer);
-			input_buffer = textBox19_Copy.Text;
-			p2 = Convert.ToDouble(input_buffer);
+			try
+			{
+				// ввод исходных данных
+				input_buffer = textBox16_Copy.Text;
+				p1 = Convert.ToDouble(input_buffer);
+				input_buffer = textBox19_Copy.Text;
+				p2 = Convert.ToDouble(input_buffer);
+			} catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
 			List<Point> points = new List<Point>();
 			points = f_y_S1;
 			points.AddRange(f_y_S2);
@@ -610,13 +516,19 @@ namespace TPR2
 			double p1 = 0.0;
 			double p2 = 0.0;
 			string input_buffer;
-			// ввод исходных данных
-			input_buffer = textBox16.Text;
-			p1 = Convert.ToDouble(input_buffer);
-			input_buffer = textBox19.Text;
-			p2 = Convert.ToDouble(input_buffer);
-			input_buffer = textBox18.Text;
-			x = Convert.ToDouble(input_buffer);
+			try
+			{
+				// ввод исходных данных
+				input_buffer = textBox16.Text;
+				p1 = Convert.ToDouble(input_buffer);
+				input_buffer = textBox19.Text;
+				p2 = Convert.ToDouble(input_buffer);
+				input_buffer = textBox18.Text;
+				x = Convert.ToDouble(input_buffer);
+			} catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
 			List<Point> points = new List<Point>();
 			points = f_x_S1;
 			points.AddRange(f_x_S2);
@@ -639,7 +551,7 @@ namespace TPR2
 					// f`(x/S1)/f`(x/S2)
 					otnosh_f = Math.Abs(func_der_Gauss(points[i].Return_Value_x(), sigma_x1, average_x1) / func_der_Gauss(points[i].Return_Value_x(), sigma_x2, average_x2));
 					otnosh_C = p2 / p1;
-					if (otnosh_f > otnosh_C)
+					if (otnosh_f >= otnosh_C)
 					{
 						label28.Content = "принадлежит S1";
 						break;
@@ -661,13 +573,19 @@ namespace TPR2
 			double p1 = 0.0;
 			double p2 = 0.0;
 			string input_buffer;
-			// ввод исходных данных
-			input_buffer = textBox16_Copy.Text;
-			p1 = Convert.ToDouble(input_buffer);
-			input_buffer = textBox19_Copy.Text;
-			p2 = Convert.ToDouble(input_buffer);
-			input_buffer = textBox20.Text;
-			y = Convert.ToDouble(input_buffer);
+			try
+			{
+				// ввод исходных данных
+				input_buffer = textBox16_Copy.Text;
+				p1 = Convert.ToDouble(input_buffer);
+				input_buffer = textBox19_Copy.Text;
+				p2 = Convert.ToDouble(input_buffer);
+				input_buffer = textBox20.Text;
+				y = Convert.ToDouble(input_buffer);
+			} catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
 			List<Point> points = new List<Point>();
 			points = f_y_S1;
 			points.AddRange(f_y_S2);
@@ -690,7 +608,7 @@ namespace TPR2
 					// f`(y/S1)/f`(y/S2)
 					otnosh_f = Math.Abs(func_der_Gauss(points[i].Return_Value_y(), sigma_y1, average_y1) / func_der_Gauss(points[i].Return_Value_y(), sigma_y2, average_y2));
 					otnosh_C = p2 / p1;
-					if (otnosh_f > otnosh_C)
+					if (otnosh_f >= otnosh_C)
 					{
 						label29.Content = "принадлежит S1";
 						break;
@@ -702,6 +620,11 @@ namespace TPR2
 					}
 				}
 			}
+		}
+
+		private void button7_Click(object sender, RoutedEventArgs e)
+		{
+			Environment.Exit(0);
 		}
 	}
 }
