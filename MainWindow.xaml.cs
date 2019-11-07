@@ -18,6 +18,14 @@ namespace TPR2
 		List<Point> f_x_S2;
 		List<Point> f_y_S1;
 		List<Point> f_y_S2;
+		double sigma_x1 = 0.0;
+		double sigma_x2 = 0.0;
+		double sigma_y1 = 0.0;
+		double sigma_y2 = 0.0;
+		double average_x1 = 0.0;
+		double average_x2 = 0.0;
+		double average_y1 = 0.0;
+		double average_y2 = 0.0;
 		int n_1 = 0;
 		int n_2 = 0;
 		public MainWindow()
@@ -25,7 +33,7 @@ namespace TPR2
 			DispatcherTimer timer = new DispatcherTimer();
 			timer.Tick += new EventHandler(timer_Tick);
 			timer.Interval = new TimeSpan(100);
-			timer.Start();
+			//timer.Start();
 			var sciChart3DSurface = new SciChart3DSurface()
 			{
 				IsAxisCubeVisible = true,
@@ -42,7 +50,20 @@ namespace TPR2
 					 new ZoomExtentsModifier3D());
 			InitializeComponent();
 		}
-
+		// функция Гаусса для нормального распределения
+		private double func_Gauss(double x, double sigma, double mu)
+		{
+			double result;
+			result = (1 / (sigma * 2.50662827)) * Math.Exp(-(((x - mu) * (x - mu)) / (2 * sigma * sigma)));
+			return result;
+		}
+		// производная фукнции Гаусса для нормального распределения
+		private double func_der_Gauss(double x, double sigma, double mu)
+		{
+			double result;
+			result = ((-1/(sigma*sigma))*(x-mu)) * func_Gauss(x, sigma, mu);
+			return result;
+		}
 		private void button_Click(object sender, RoutedEventArgs e)
 		{
 			f_x_S1 = new List<Point>();
@@ -74,10 +95,7 @@ namespace TPR2
 			double x_cen = 0.0;
 			double y_cen = 0.0;
 			string input_buffer;
-			double average_x1 = 0.0;
-			double average_x2 = 0.0;
-			double average_y1 = 0.0;
-			double average_y2 = 0.0;
+
 			try
 			{
 				// ввод исходных данных
@@ -128,6 +146,8 @@ namespace TPR2
 				var y = 0;
 				xyzDataSeries3D_2.Append(x, y, z);
 			}
+			xyzDataSeries3D_1.SeriesName = "S1";
+			xyzDataSeries3D_2.SeriesName = "S2";
 			ScatterSeries3D_1.DataSeries = xyzDataSeries3D_1;
 			ScatterSeries3D_2.DataSeries = xyzDataSeries3D_2;
 
@@ -152,8 +172,11 @@ namespace TPR2
 				xyzDataSeries3D_5.Append(xVal, set_p_1[i].Return_Value_z(), 0);
 				xyzDataSeries3D_6.Append(0, set_p_1[i].Return_Value_z(), zVal);
 			}
+			xyzDataSeries3D_3.SeriesName = "f(x,y/S1)";
 			Column1.DataSeries = xyzDataSeries3D_3;
+			xyzDataSeries3D_5.SeriesName = "f(x,0/S1)";
 			Column3.DataSeries = xyzDataSeries3D_5;
+			xyzDataSeries3D_6.SeriesName = "f(0,y/S1)";
 			Column4.DataSeries = xyzDataSeries3D_6;
 			
 			double cov_2 = 0.0;
@@ -175,9 +198,11 @@ namespace TPR2
 				xyzDataSeries3D_7.Append(xVal, set_p_2[i].Return_Value_z(), 0);
 				xyzDataSeries3D_8.Append(0, set_p_2[i].Return_Value_z(), zVal);
 			}
-			
+			xyzDataSeries3D_4.SeriesName = "f(x,y/S2)";
 			Column2.DataSeries = xyzDataSeries3D_4;
+			xyzDataSeries3D_7.SeriesName = "f(x,0/S2)";
 			Column5.DataSeries = xyzDataSeries3D_7;
+			xyzDataSeries3D_8.SeriesName = "f(0,y/S2)";
 			Column6.DataSeries = xyzDataSeries3D_8;
 
 			// построение плотностей проекций множеств S1 и S2
@@ -196,12 +221,12 @@ namespace TPR2
 				dispersion_x1 += Math.Pow(set_p_1[i].Return_Value_x() - average_x1, 2);
 			}
 			dispersion_x1 = dispersion_x1 / n_1;
-			double sigma_x1 = Math.Sqrt(dispersion_x1);
+			sigma_x1 = Math.Sqrt(dispersion_x1);
 			double x1 = average_x1 - sigma_x1*3;
 			for (int i = 0; i < n_1*18; i++)
 			{
 				x1 += sigma_x1 / (n_1*3);
-				double f_x =((1 / (sigma_x1 * 2.50662827)) * Math.Exp(-(((x1 - average_x1) * (x1 - average_x1)) / (2 * sigma_x1 * sigma_x1))));
+				double f_x = func_Gauss(x1, sigma_1_x, average_x1);
 				f_x_S1.Add(new Point(x1, 0, f_x)
 				{
 					sigma_x = sigma_x1,
@@ -209,6 +234,7 @@ namespace TPR2
 				});
 				xyzDataSeries3D_9.Append(x1, f_x, 0);
 			}
+			xyzDataSeries3D_9.SeriesName = "f(x/S1)";
 			PointLineSeries3D.DataSeries = xyzDataSeries3D_9;
 			// построение плотности проекции f(x/S2)
 			for (int i = 0; i < n_2; i++)
@@ -216,12 +242,12 @@ namespace TPR2
 				dispersion_x2 += Math.Pow(set_p_2[i].Return_Value_x() - average_x2, 2);
 			}
 			dispersion_x2 = dispersion_x2 / n_2;
-			double sigma_x2 = Math.Sqrt(dispersion_x2);
+			sigma_x2 = Math.Sqrt(dispersion_x2);
 			double x2 = average_x2 - sigma_x2 * 3;
 			for (int i = 0; i < n_2 * 18; i++)
 			{
 				x2 += sigma_x2 / (n_2 * 3);
-				double f_x = (1 / (sigma_x2 * 2.50662827)) * Math.Exp(-(((x2 - average_x2) * (x2 - average_x2)) / (2 * sigma_x2 * sigma_x2)));
+				double f_x = func_Gauss(x2, sigma_x2, average_x2);
 				f_x_S2.Add(new Point(x2, 0, f_x) {
 					sigma_x = sigma_x2,
 					mu_x = average_x2
@@ -229,6 +255,7 @@ namespace TPR2
 				});
 				xyzDataSeries3D_10.Append(x2, f_x, 0);
 			}
+			xyzDataSeries3D_10.SeriesName = "f(x/S2)";
 			PointLineSeries3D_1.DataSeries = xyzDataSeries3D_10;
 			// построение плотности проекции f(y/S1)
 			for (int i = 0; i < n_1; i++)
@@ -236,12 +263,12 @@ namespace TPR2
 				dispersion_y1 += Math.Pow(set_p_1[i].Return_Value_y() - average_y1, 2);
 			}
 			dispersion_y1 = dispersion_y1 / n_1;
-			double sigma_y1 = Math.Sqrt(dispersion_y1);
+			sigma_y1 = Math.Sqrt(dispersion_y1);
 			double y1 = average_y1 - sigma_y1 * 3;
 			for (int i = 0; i < n_1*18; i++)
 			{
 				y1 += sigma_y1 / (n_1 * 3);
-				double f_x = (1 / (sigma_y1 * 2.50662827)) * Math.Exp(-(((y1 - average_y1) * (y1 - average_y1)) / (2 * sigma_y1 * sigma_y1)));
+				double f_x = func_Gauss(y1, sigma_y1, average_y1);
 				f_y_S1.Add(new Point(0, y1, f_x)
 				{
 					sigma_y = sigma_y1,
@@ -250,6 +277,7 @@ namespace TPR2
 				});
 				xyzDataSeries3D_11.Append(0, f_x, y1);
 			}
+			xyzDataSeries3D_11.SeriesName = "f(y/S1)";
 			PointLineSeries3D_2.DataSeries = xyzDataSeries3D_11;
 			// построение плотности проекции f(y/S2)
 			for (int i = 0; i < n_2; i++)
@@ -257,12 +285,12 @@ namespace TPR2
 				dispersion_y2 += Math.Pow(set_p_2[i].Return_Value_y() - average_y2, 2);
 			}
 			dispersion_y2 = dispersion_y2 / n_2;
-			double sigma_y2 = Math.Sqrt(dispersion_y2);
+			sigma_y2 = Math.Sqrt(dispersion_y2);
 			double y2 = average_y2 - sigma_y2 * 3;
 			for (int i = 0; i < n_2 * 18; i++)
 			{
 				y2 += sigma_y2 / (n_2 * 3);
-				double f_x = (1 / (sigma_y2 * 2.50662827)) * Math.Exp(-(((y2 - average_y2) * (y2 - average_y2)) / (2 * sigma_y2 * sigma_y2)));
+				double f_x = func_Gauss(y2, sigma_y2, average_y2);
 				f_y_S2.Add(new Point(0, y2, f_x)
 				{
 					sigma_y = sigma_y2,
@@ -271,6 +299,7 @@ namespace TPR2
 				});
 				xyzDataSeries3D_12.Append(0, f_x, y2);
 			}
+			xyzDataSeries3D_12.SeriesName = "f(y/S2)";
 			PointLineSeries3D_3.DataSeries = xyzDataSeries3D_12;
 
 			// вывод значений точек образов S1 и S2 на экран
@@ -410,22 +439,33 @@ namespace TPR2
 			p1 = Convert.ToDouble(input_buffer);
 			input_buffer = textBox19.Text;
 			p2 = Convert.ToDouble(input_buffer);
-			for (int i = 0; i < f_x_S1.Count; i++)
+			List<Point> points = new List<Point>();
+			points = f_x_S1;
+			points.AddRange(f_x_S2);
+			for (int i = 0; i < points.Count; i++)
 			{
-				for (int j = 0; j < f_x_S2.Count; j++)
+				for (int j = 0; j < points.Count; j++)
 				{
-					if (Math.Abs(f_x_S1[i].Return_Value_x() - f_x_S2[j].Return_Value_x()) < 0.001)
+					if (points[i].Return_Value_x()>points[i].Return_Value_x())
 					{
-						otnosh_f = f_x_S1[i].Return_Value_z() / f_x_S2[j].Return_Value_z();
-						otnosh_C = ((C12 - C22) * (p2)) / ((C21 - C11) * (p1));
-						if (Math.Abs(otnosh_f - otnosh_C) < 0.01)
-						{
-							x_por = f_x_S1[i].Return_Value_x();
-							label24.Content = "X(пор.)= " + x_por.ToString();
-							break;
-						}
+						Point swap = points[i];
+						points[i] = points[j];
+						points[j] = swap;
 					}
 				}
+			}
+			for (int i = 0; i < points.Count; i++)
+			{
+				otnosh_f = func_Gauss(points[i].Return_Value_x(), sigma_x1, average_x1) / func_Gauss(points[i].Return_Value_x(), sigma_x2, average_x2);
+				otnosh_C = ((C12 - C22) * (p2)) / ((C21 - C11) * (p1));
+				if (Math.Abs(otnosh_f - otnosh_C) < 0.001)
+				{
+					x_por = points[i].Return_Value_x();
+					label24.Content = "X(пор.)= " + x_por.ToString();
+					break;
+				
+				}
+				
 			}
 		}
 		/*Определение порогового значения x по условию минимума числа ошибочных решений*/
@@ -442,22 +482,31 @@ namespace TPR2
 			p1 = Convert.ToDouble(input_buffer);
 			input_buffer = textBox19.Text;
 			p2 = Convert.ToDouble(input_buffer);
-			for (int i = 0; i < f_x_S1.Count; i++)
+			List<Point> points = new List<Point>();
+			points = f_x_S1;
+			points.AddRange(f_x_S2);
+			for (int i = 0; i < points.Count; i++)
 			{
-				for (int j = 0; j < f_x_S2.Count; j++)
+				for (int j = 0; j < points.Count; j++)
 				{
-					if (Math.Abs(f_x_S1[i].Return_Value_x() - f_x_S2[j].Return_Value_x()) < 0.001)
+					if (points[i].Return_Value_x() > points[i].Return_Value_x())
 					{
-						otnosh_f = Math.Abs( (f_x_S1[i].Return_Value_z() * (-1 / (2 * f_x_S1[i].sigma_x * f_x_S1[i].sigma_x)) * 2 * (f_x_S1[i].Return_Value_x() - f_x_S1[i].mu_x)) / (f_x_S2[j].Return_Value_z() * (-1 / (2 * f_x_S2[i].sigma_x * f_x_S2[i].sigma_x)) * 2 * (f_x_S2[j].Return_Value_x() - f_x_S2[i].mu_x)) );
-						otnosh_C = p2 / p1;
-						if (Math.Abs(otnosh_f - otnosh_C) < 0.1)
-						{
-							x_por = f_x_S1[i].Return_Value_x();
-							label11.Content = "X(пор.)= " + x_por.ToString();
-							break;
-						}
+						Point swap = points[i];
+						points[i] = points[j];
+						points[j] = swap;
 					}
 				}
+			}
+			for (int i = 0; i < points.Count; i++)
+			{
+				otnosh_f = Math.Abs(func_der_Gauss(points[i].Return_Value_x(), sigma_x1, average_x1) / func_der_Gauss(points[i].Return_Value_x(), sigma_x2, average_x2) );
+				otnosh_C = p2 / p1;
+				if (Math.Abs(otnosh_f - otnosh_C) < 0.001)
+				{
+					x_por = points[i].Return_Value_x();
+					label11.Content = "X(пор.)= " + x_por.ToString();
+					break;
+				}				
 			}			
 		}
 		/*Определение порогового значения y по условию минимума среднего риска*/
@@ -483,21 +532,31 @@ namespace TPR2
 			p1 = Convert.ToDouble(input_buffer);
 			input_buffer = textBox19_Copy.Text;
 			p2 = Convert.ToDouble(input_buffer);
-			for (int i = 0; i < f_y_S1.Count; i++)
+			List<Point> points = new List<Point>();
+			points = f_y_S1;
+			points.AddRange(f_y_S2);
+			for (int i = 0; i < points.Count; i++)
 			{
-				for (int j = 0; j < f_y_S2.Count; j++)
+				for (int j = 0; j < points.Count; j++)
 				{
-					if (Math.Abs(f_y_S1[i].Return_Value_y() - f_y_S2[j].Return_Value_y()) < 0.001)
+					if (points[i].Return_Value_y() < points[i].Return_Value_y())
 					{
-						otnosh_f = f_y_S1[i].Return_Value_z() / f_y_S2[j].Return_Value_z();
-						otnosh_C = ((C12 - C22) * (p2)) / ((C21 - C11) * (p1));
-						if (Math.Abs(otnosh_f - otnosh_C) < 0.01)
-						{
-							y_por = f_y_S1[i].Return_Value_y();
-							label24_Copy.Content = "Y(пор.)= " + y_por.ToString();
-							break;
-						}
+						Point swap = points[i];
+						points[i] = points[j];
+						points[j] = swap;
 					}
+				}
+			}
+			for (int i = 0; i < points.Count; i++)
+			{
+				otnosh_f = func_Gauss(points[i].Return_Value_y(), sigma_y1, average_y1) / func_Gauss(points[i].Return_Value_y(), sigma_y2, average_y2);
+				otnosh_C = ((C12 - C22) * (p2)) / ((C21 - C11) * (p1));
+				if (Math.Abs(otnosh_f - otnosh_C) < 0.001)
+				{
+					y_por = points[i].Return_Value_y();
+					label24_Copy.Content = "Y(пор.)= " + y_por.ToString();
+					break;
+
 				}
 			}
 		}
@@ -515,21 +574,30 @@ namespace TPR2
 			p1 = Convert.ToDouble(input_buffer);
 			input_buffer = textBox19_Copy.Text;
 			p2 = Convert.ToDouble(input_buffer);
-			for (int i = 0; i < f_y_S1.Count; i++)
+			List<Point> points = new List<Point>();
+			points = f_y_S1;
+			points.AddRange(f_y_S2);
+			for (int i = 0; i < points.Count; i++)
 			{
-				for (int j = 0; j < f_y_S2.Count; j++)
+				for (int j = 0; j < points.Count; j++)
 				{
-					if (Math.Abs(f_y_S1[i].Return_Value_y() - f_y_S2[j].Return_Value_y()) < 0.001)
+					if (points[i].Return_Value_y() < points[i].Return_Value_y())
 					{
-						otnosh_f = Math.Abs((f_y_S1[i].Return_Value_z() * (1 / (f_y_S1[i].sigma_y * f_y_S1[i].sigma_y)) * (-f_y_S1[i].Return_Value_y() + f_y_S1[i].mu_y)) / (f_y_S2[j].Return_Value_z() * (1 / (f_y_S2[i].sigma_y * f_y_S2[i].sigma_y)) * (-f_y_S2[j].Return_Value_y() + f_y_S2[i].mu_y)));
-						otnosh_C = p2 / p1;
-						if (Math.Abs(otnosh_f - otnosh_C) < 0.1)
-						{
-							y_por = f_y_S1[i].Return_Value_y();
-							label11_Copy.Content = "Y(пор.)= " + y_por.ToString();
-							break;
-						}
+						Point swap = points[i];
+						points[i] = points[j];
+						points[j] = swap;
 					}
+				}
+			}
+			for (int i = 0; i < points.Count; i++)
+			{
+				otnosh_f = Math.Abs(func_der_Gauss(points[i].Return_Value_y(), sigma_y1, average_y1) / func_der_Gauss(points[i].Return_Value_y(), sigma_y2, average_y2));
+				otnosh_C = p2 / p1;
+				if (Math.Abs(otnosh_f - otnosh_C) < 0.001)
+				{
+					y_por = points[i].Return_Value_y();
+					label11_Copy.Content = "Y(пор.)= " + y_por.ToString();
+					break;
 				}
 			}
 		}
@@ -549,27 +617,37 @@ namespace TPR2
 			p2 = Convert.ToDouble(input_buffer);
 			input_buffer = textBox18.Text;
 			x = Convert.ToDouble(input_buffer);
-			for (int i = 0; i < f_x_S1.Count; i++)
+			List<Point> points = new List<Point>();
+			points = f_x_S1;
+			points.AddRange(f_x_S2);
+			for (int i = 0; i < points.Count; i++)
 			{
-				for (int j = 0; j < f_x_S2.Count; j++)
+				for (int j = 0; j < points.Count; j++)
 				{
-					if (Math.Abs(f_x_S1[i].Return_Value_x() - x) < 0.1)
+					if (points[i].Return_Value_x() > points[i].Return_Value_x())
 					{
-						if (Math.Abs(x - f_x_S2[j].Return_Value_x()) < 0.1)
-						{
-							// f`(x/S1)/f`(x/S2)
-							otnosh_f = Math.Abs((f_x_S1[i].Return_Value_z() * (-1 / (2 * f_x_S1[i].sigma_x * f_x_S1[i].sigma_x)) * 2 * (f_x_S1[i].Return_Value_x() - f_x_S1[i].mu_x)) / (f_x_S2[j].Return_Value_z() * (-1 / (2 * f_x_S2[i].sigma_x * f_x_S2[i].sigma_x)) * 2 * (f_x_S2[j].Return_Value_x() - f_x_S2[i].mu_x)));
-							otnosh_C = p2 / p1;
-							if (otnosh_f > otnosh_C )
-							{
-								label28.Content = "принадлежит S1";
-								break;
-							} else
-							{
-								label28.Content = "принадлежит S2";
-								break;
-							}
-						}
+						Point swap = points[i];
+						points[i] = points[j];
+						points[j] = swap;
+					}
+				}
+			}
+			for (int i = 0; i < points.Count; i++)
+			{
+				if (Math.Abs(x - points[i].Return_Value_x()) < 0.001)
+				{
+					// f`(x/S1)/f`(x/S2)
+					otnosh_f = Math.Abs(func_der_Gauss(points[i].Return_Value_x(), sigma_x1, average_x1) / func_der_Gauss(points[i].Return_Value_x(), sigma_x2, average_x2));
+					otnosh_C = p2 / p1;
+					if (otnosh_f > otnosh_C)
+					{
+						label28.Content = "принадлежит S1";
+						break;
+					}
+					else
+					{
+						label28.Content = "принадлежит S2";
+						break;
 					}
 				}
 			}
@@ -590,27 +668,37 @@ namespace TPR2
 			p2 = Convert.ToDouble(input_buffer);
 			input_buffer = textBox20.Text;
 			y = Convert.ToDouble(input_buffer);
-			for (int i = 0; i < f_y_S1.Count; i++)
+			List<Point> points = new List<Point>();
+			points = f_y_S1;
+			points.AddRange(f_y_S2);
+			for (int i = 0; i < points.Count; i++)
 			{
-				for (int j = 0; j < f_y_S2.Count; j++)
+				for (int j = 0; j < points.Count; j++)
 				{
-					if (Math.Abs(f_y_S1[i].Return_Value_y() - y) < 0.1)
+					if (points[i].Return_Value_y() > points[i].Return_Value_y())
 					{
-						if (Math.Abs(y - f_y_S2[j].Return_Value_y()) < 0.1)
-						{
-							// f`(y/S1)/f`(y/S2)
-							otnosh_f = Math.Abs((f_y_S2[i].Return_Value_z() * (-1 / (2 * f_y_S2[i].sigma_y * f_x_S2[i].sigma_y)) * 2 * (f_y_S2[i].Return_Value_y() - f_y_S2[i].mu_y)) / (f_y_S1[j].Return_Value_z() * (-1 / (2 * f_y_S1[i].sigma_y * f_y_S1[i].sigma_y)) * 2 * (f_y_S1[j].Return_Value_y() - f_y_S1[i].mu_y)));
-							otnosh_C = p2 / p1;
-							if (otnosh_f > otnosh_C)
-							{
-								label29.Content = "принадлежит S1";
-							}
-							else
-							{
-								label29.Content = "принадлежит S2";
-							}
-							break;
-						}
+						Point swap = points[i];
+						points[i] = points[j];
+						points[j] = swap;
+					}
+				}
+			}
+			for (int i = 0; i < points.Count; i++)
+			{
+				if (Math.Abs(y - points[i].Return_Value_y()) < 0.001)
+				{
+					// f`(y/S1)/f`(y/S2)
+					otnosh_f = Math.Abs(func_der_Gauss(points[i].Return_Value_y(), sigma_y1, average_y1) / func_der_Gauss(points[i].Return_Value_y(), sigma_y2, average_y2));
+					otnosh_C = p2 / p1;
+					if (otnosh_f > otnosh_C)
+					{
+						label29.Content = "принадлежит S1";
+						break;
+					}
+					else
+					{
+						label29.Content = "принадлежит S2";
+						break;
 					}
 				}
 			}

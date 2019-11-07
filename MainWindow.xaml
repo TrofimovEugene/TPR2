@@ -10,8 +10,10 @@
     <Grid RenderTransformOrigin="0.5,0.5">
         <Grid.RenderTransform>
             <TransformGroup>
-                <ScaleTransform/>
-                <SkewTransform/>
+                <ScaleTransform ScaleX="1"
+                                ScaleY="1"
+                                />
+                <SkewTransform />
                 <RotateTransform Angle="0"/>
                 <TranslateTransform Y="0"/>
             </TransformGroup>
@@ -21,37 +23,68 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <Grid.Resources>
+            <Style x:Key="SciChartSurfaceStyle" TargetType="s3D:SciChart3DSurface">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="Padding" Value="30"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="50"/>
+                <Setter Property="FontFamily" Value="Arial Black"/>
+                <Setter Property="FontWeight" Value="Black"/>
+            </Style>
 
-        <s3D:SciChart3DSurface Grid.ColumnSpan="2" Margin="0,0,800,0">
+            <Style x:Key="MajorGridLineStyle" TargetType="Line">
+                <Setter Property="Stroke" Value="Black"/>
+            </Style>
+
+            <Style x:Key="MinorGridLineStyle" TargetType="Line">
+                <Setter Property="Stroke" Value="White"/>
+            </Style>
+
+            <Style x:Key="MajorTickLineStyle" TargetType="Line">
+                <Setter Property="Stroke" Value="White"/>
+                <Setter Property="X2" Value="20"/>
+            </Style>
+
+            <Style x:Key="MinorTickLineStyle" TargetType="Line">
+                <Setter Property="Stroke" Value="Black"/>
+                <Setter Property="X2" Value="10"/>
+            </Style>
+        </Grid.Resources>
+
+
+        <s3D:SciChart3DSurface Grid.ColumnSpan="2" Margin="0,0,800,0"
+                               Style ="{StaticResource SciChartSurfaceStyle}">
             <s3D:SciChart3DSurface.Camera>
-                <s3D:Camera3D ZoomToFitOnAttach="True"/>
+                <s3D:Camera3D ZoomToFitOnAttach="True"
+                              />
             </s3D:SciChart3DSurface.Camera>
             <s3D:SciChart3DSurface.RenderableSeries>
                 <!--  To create a Scatter Chart, create a ScatterRenderableSeries3D and use a 3D point marker type  -->
                 <s3D:ColumnRenderableSeries3D x:Name="Column1"
                                               ColumnSpacingMode="FixedSize"
                                               CoulmnFixedSize="3"
-                                              Fill="White"
+                                              Fill="Green"
                                       ColumnShape="{x:Type s3D:CylinderPointMarker3D}"
                                       DataPointWidthX="1"
                                       Opacity="1"/>
                 <s3D:ColumnRenderableSeries3D x:Name="Column2"  
                                               ColumnSpacingMode="FixedSize"
                                               CoulmnFixedSize="3"
-                                              Fill="Gray"
+                                              Fill="Brown"
                                       ColumnShape="{x:Type s3D:CylinderPointMarker3D}"
                                       DataPointWidthX="1"
                                       Opacity="1"/>
                 <s3D:ColumnRenderableSeries3D x:Name="Column3"  
                                               ColumnSpacingMode="FixedSize"
-                                              CoulmnFixedSize="2"
+                                              CoulmnFixedSize="3"
                                               Fill="Blue"
                                       ColumnShape="{x:Type s3D:CylinderPointMarker3D}"
                                       DataPointWidthX="1"
                                       Opacity="1"/>
                 <s3D:ColumnRenderableSeries3D x:Name="Column4"  
                                               ColumnSpacingMode="FixedSize"
-                                              CoulmnFixedSize="2"
+                                              CoulmnFixedSize="3"
                                               Fill="Blue"
                                       ColumnShape="{x:Type s3D:CylinderPointMarker3D}"
                                       DataPointWidthX="1"
@@ -80,7 +113,6 @@
                     </s3D:PointLineRenderableSeries3D.PointMarker>
                 </s3D:PointLineRenderableSeries3D>
                 <s3D:PointLineRenderableSeries3D x:Name="PointLineSeries3D_1"
-                                                 
                                        IsAntialiased="True"
                                        IsLineStrips="False"
                                        Opacity="1"
@@ -90,7 +122,6 @@
                     </s3D:PointLineRenderableSeries3D.PointMarker>
                 </s3D:PointLineRenderableSeries3D>
                 <s3D:PointLineRenderableSeries3D x:Name="PointLineSeries3D_2"
-                                                 
                                        IsAntialiased="True"
                                        IsLineStrips="False"
                                        Opacity="1"
@@ -105,17 +136,17 @@
                                        Opacity="1"
                                        StrokeThickness="2">
                     <s3D:PointLineRenderableSeries3D.PointMarker>
-                        <s3D:SpherePointMarker3D Opacity="1" Size="2" Fill="Red"/>
+                        <s3D:SpherePointMarker3D Opacity="1" Size="2" Fill="Green"/>
                     </s3D:PointLineRenderableSeries3D.PointMarker>
                 </s3D:PointLineRenderableSeries3D>
                 <s3D:ScatterRenderableSeries3D x:Name="ScatterSeries3D_1">
                     <s3D:ScatterRenderableSeries3D.PointMarker>
-                        <s3D:EllipsePointMarker3D Fill="Green" Size="4.0" Opacity="1"/>
+                        <s3D:TrianglePointMarker3D Fill="Orange" Size="5" Opacity="1"/>
                     </s3D:ScatterRenderableSeries3D.PointMarker>
                 </s3D:ScatterRenderableSeries3D>
                 <s3D:ScatterRenderableSeries3D x:Name="ScatterSeries3D_2">
                     <s3D:ScatterRenderableSeries3D.PointMarker>
-                        <s3D:EllipsePointMarker3D Fill="Red" Size="4.0" Opacity="1"/>
+                        <s3D:SpherePointMarker3D Fill="Red" Size="5" Opacity="1"/>
                     </s3D:ScatterRenderableSeries3D.PointMarker>
                 </s3D:ScatterRenderableSeries3D>
                 <s3D:ScatterRenderableSeries3D x:Name="ScatterSeries3D_3">
@@ -131,25 +162,65 @@
             </s3D:SciChart3DSurface.RenderableSeries>
             <!-- Create the XAxis -->
             <s3D:SciChart3DSurface.XAxis>
-                <s3D:NumericAxis3D GrowBy="0.1,0.1"/>
+                <s3D:NumericAxis3D
+                    AutoRange="Always"
+                    TickTextBrush="Black" AxisTitle="X" DrawMajorBands="True" DrawMajorGridLines="True"
+                        DrawMinorGridLines="True"
+                        DrawMajorTicks="True"
+                        DrawMinorTicks="True"
+                        AxisBandsFill="White"
+                        FontSize="10"
+                        TickLabelAlignment="Camera"
+                        MajorGridLineStyle="{StaticResource MajorGridLineStyle}"
+                        MinorGridLineStyle="{StaticResource MinorGridLineStyle}"
+                        MajorTickLineStyle="{StaticResource MajorTickLineStyle}"
+                        MinorTickLineStyle="{StaticResource MinorTickLineStyle}"
+                    GrowBy="0.1,0.1"/>
             </s3D:SciChart3DSurface.XAxis>
             <!-- Create the YAxis -->
             <s3D:SciChart3DSurface.YAxis>
-                <s3D:NumericAxis3D GrowBy="0.1,0.1"/>
+                <s3D:NumericAxis3D 
+                    AutoRange="Always"
+                    TickTextBrush="Black" AxisTitle="Z" DrawMajorBands="True" DrawMajorGridLines="True"
+                        DrawMinorGridLines="True"
+                        DrawMajorTicks="True"
+                        DrawMinorTicks="True"
+                        AxisBandsFill="White"
+                        FontSize="10"
+                        TickLabelAlignment="Camera"
+                        MajorGridLineStyle="{StaticResource MajorGridLineStyle}"
+                        MinorGridLineStyle="{StaticResource MinorGridLineStyle}"
+                        MajorTickLineStyle="{StaticResource MajorTickLineStyle}"
+                        MinorTickLineStyle="{StaticResource MinorTickLineStyle}"
+                    GrowBy="0.1,0.1"/>
             </s3D:SciChart3DSurface.YAxis>
             <!-- Create the ZAxis -->
             <s3D:SciChart3DSurface.ZAxis>
-                <s3D:NumericAxis3D GrowBy="0.1,0.1"/>
+                <s3D:NumericAxis3D
+                    AutoRange="Always"
+                    TickTextBrush="Black" AxisTitle="Y" DrawMajorBands="True" DrawMajorGridLines="True"
+                        DrawMinorGridLines="True"
+                        DrawMajorTicks="True"
+                        DrawMinorTicks="True"
+                        AxisBandsFill="White"
+                        FontSize="10"
+                        TickLabelAlignment="Camera"
+                        MajorGridLineStyle="{StaticResource MajorGridLineStyle}"
+                        MinorGridLineStyle="{StaticResource MinorGridLineStyle}"
+                        MajorTickLineStyle="{StaticResource MajorTickLineStyle}"
+                        MinorTickLineStyle="{StaticResource MinorTickLineStyle}"
+                    GrowBy="0.1,0.1"/>
             </s3D:SciChart3DSurface.ZAxis>
 
             <!-- Create Interactivity Modifiers for rotating camera -->
             <s3D:SciChart3DSurface.ChartModifier>
                 <s3D:ModifierGroup3D>
                     <s3D:OrbitModifier3D/>
-                    <s3D:ZoomExtentsModifier3D/>
-                    <s3D:LegendModifier3D ShowLegend="True" Orientation="Horizontal" Margin="10"
-                           LegendPlacement="Inside"
-                       ShowVisibilityCheckboxes="True"/>
+                    <s3D:MouseWheelZoomModifier3D MouseWheelSensitivity="10"/>
+                    <s3D:ZoomExtentsModifier3D ExecuteOn="MouseDoubleClick"/>
+                    <s3D:LegendModifier3D ShowLegend="True" Orientation="Vertical" Margin="10"
+                           LegendPlacement="Right"
+                           ShowVisibilityCheckboxes="True"/>
                 </s3D:ModifierGroup3D>
             </s3D:SciChart3DSurface.ChartModifier>
         </s3D:SciChart3DSurface>
