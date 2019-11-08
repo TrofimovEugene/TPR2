@@ -252,18 +252,6 @@
         <Label x:Name="label8_Copy" Content="множества X(ЗНАЧЕНИЕ СТРОГО БОЛЬШЕ НУЛЯ!!!)" Grid.Column="1" HorizontalAlignment="Left" Margin="279,462,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label9" Content="Среднее квадратическое отклонение для второго" Grid.Column="1" HorizontalAlignment="Left" Margin="279,483,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label9_Copy" Content="множества Y(ЗНАЧЕНИЕ СТРОГО БОЛЬШЕ НУЛЯ!!!)" Grid.Column="1" HorizontalAlignment="Left" Margin="279,503,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="checkBox" Content="S1" Grid.Column="1" HorizontalAlignment="Left" Margin="332,43,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <CheckBox x:Name="checkBox1" Content="S2" Grid.Column="1" HorizontalAlignment="Left" Margin="332,63,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <CheckBox x:Name="checkBox2" Content="f1(x,y/S1)" Grid.Column="1" HorizontalAlignment="Left" Margin="332,83,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <CheckBox x:Name="checkBox3" Content="f2(x,y/S2)" Grid.Column="1" HorizontalAlignment="Left" Margin="332,103,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <CheckBox x:Name="checkBox4" Content="f1(x,0/S1)" Grid.Column="1" HorizontalAlignment="Left" Margin="419,43,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <CheckBox x:Name="checkBox5" Content="f2(x,0/S2)" Grid.Column="1" HorizontalAlignment="Left" Margin="419,63,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <CheckBox x:Name="checkBox6" Content="f1(0,y/S1)" Grid.Column="1" HorizontalAlignment="Left" Margin="419,83,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <CheckBox x:Name="checkBox7" Content="f2(0,y/S2)" Grid.Column="1" HorizontalAlignment="Left" Margin="419,103,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <CheckBox x:Name="checkBox8" Content="f(x/S1)" Grid.Column="1" HorizontalAlignment="Left" Margin="516,43,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <CheckBox x:Name="checkBox9" Content="f(x/S2)" Grid.Column="1" HorizontalAlignment="Left" Margin="516,63,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <CheckBox x:Name="checkBox10" Content="f(y/S1)" Grid.Column="1" HorizontalAlignment="Left" Margin="516,83,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <CheckBox x:Name="checkBox11" Content="f(y/S2)" Grid.Column="1" HorizontalAlignment="Left" Margin="516,103,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <Button x:Name="button1" Content="Рассчитать пороговое значение из min среднего риска" Grid.Column="1" HorizontalAlignment="Left" Margin="733,293,0,0" VerticalAlignment="Top" Click="button1_Click" Grid.ColumnSpan="2"/>
         <Label x:Name="label16" Content="C11" Grid.Column="1" HorizontalAlignment="Left" Margin="733,66,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="textBox12" Grid.Column="1" HorizontalAlignment="Left" Margin="793,69,0,0" Text="-1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" Grid.ColumnSpan="2"/>
