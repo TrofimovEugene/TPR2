@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TPR2
 {
     // класс, описывающий случаную точку
-    class Point
+    public class Point
     {
         private double x;
         private double y;
@@ -21,7 +21,7 @@ namespace TPR2
         // среднеквадратическое отклонение Y
         public double sigma_y { get; set; }
 		NormalRandom nr;
-        public Point(double m_x, double s_x, double m_y, double s_y, NormalRandom norm_rand)
+		public Point(double m_x, double s_x, double m_y, double s_y, NormalRandom norm_rand)
         {
             mu_x = m_x;
             sigma_x = s_x;

@@ -3,7 +3,7 @@
 namespace TPR2
 {
     // класс для задания случайных чисел по нормальному закону
-    class NormalRandom: Random
+    public class NormalRandom: Random
     {
         double prevSample = double.NaN;
         protected override double Sample()

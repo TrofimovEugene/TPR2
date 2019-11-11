@@ -307,7 +307,7 @@
         <Label x:Name="label28" Content="принадлежит" Grid.Column="2" HorizontalAlignment="Left" Margin="1,916,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label29" Content="принадлежит" Grid.Column="2" HorizontalAlignment="Left" Margin="1,942,0,0" VerticalAlignment="Top"/>
         <Menu x:Name="menu" HorizontalAlignment="Left" Height="20" Margin="0,0,0,0" VerticalAlignment="Top" Width="1912" Grid.ColumnSpan="3">
-            <Button Content="Указания к лабораторной работе" />
+            <Button Content="Указания к лабораторной работе" Click="Button_Click_1" />
             <Button Content="Сведения о программе"/>
             <Button Content="Руководство пользователя"/>
             <Button x:Name="button7" Content="Выйти из программы" Click="button7_Click"/>

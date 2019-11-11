@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TPR2
 {
-    class Set_Point
+    public class Set_Point
     {
         // мат. ожидание по X
         double mu_x;

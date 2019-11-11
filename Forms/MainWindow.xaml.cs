@@ -6,6 +6,7 @@ using SciChart.Charting3D;
 using SciChart.Charting3D.Axis;
 using SciChart.Charting3D.Model;
 using SciChart.Charting3D.Modifiers;
+using TPR2.Classes;
 
 namespace TPR2
 {
@@ -28,6 +29,7 @@ namespace TPR2
 		double average_y2 = 0.0;
 		int n_1 = 0;
 		int n_2 = 0;
+		Instructions instructions;
 		public MainWindow()
 		{
 			var sciChart3DSurface = new SciChart3DSurface()
@@ -45,43 +47,11 @@ namespace TPR2
 					 new OrbitModifier3D(),
 					 new ZoomExtentsModifier3D());
 			InitializeComponent();
+			instructions = new Instructions();
+			instructions.Show();
+			instructions.Activate();
 		}
-		// вычисление диспресии по X
-		private double DispersionX(List<Point> points, double average)
-		{
-			double result = 0.0;
-			foreach (Point point in points)
-			{
-				result += (point.Return_Value_x() - average) * (point.Return_Value_x() - average);
-			}
-			result = result / points.Count;
-			return result;
-		}
-		// вычисление диспресии по Y
-		private double DispersionY(List<Point> points, double average)
-		{
-			double result = 0.0;
-			foreach (Point point in points)
-			{
-				result += (point.Return_Value_y() - average) * (point.Return_Value_y() - average);
-			}
-			result = result / points.Count;
-			return result;
-		}
-		// функция Гаусса для нормального распределения
-		private double func_Gauss(double x, double sigma, double mu)
-		{
-			double result;
-			result = (1 / (sigma * 2.50662827)) * Math.Exp(-(((x - mu) * (x - mu)) / (2 * sigma * sigma)));
-			return result;
-		}
-		// производная фукнции Гаусса для нормального распределения
-		private double func_der_Gauss(double x, double sigma, double mu)
-		{
-			double result;
-			result = ((-1/(sigma*sigma))*(x-mu)) * func_Gauss(x, sigma, mu);
-			return result;
-		}
+		
 		private void button_Click(object sender, RoutedEventArgs e)
 		{
 			f_x_S1 = new List<Point>();
@@ -230,52 +200,52 @@ namespace TPR2
 			double dispersion_x2 = 0.0;
 			double dispersion_y2 = 0.0;
 			// построение плотности проекции f(x/S1)
-			dispersion_x1 = DispersionX(set_p_1, average_x1);
+			dispersion_x1 = Math_TPR.DispersionX(set_p_1, average_x1);
 			sigma_x1 = Math.Sqrt(dispersion_x1);
 			double x1 = average_x1 - sigma_x1*3;
 			for (int i = 0; i < n_1*18; i++)
 			{
 				x1 += sigma_x1 / (n_1*3);
-				double f_x = func_Gauss(x1, sigma_1_x, average_x1);
+				double f_x = Math_TPR.func_Gauss(x1, sigma_1_x, average_x1);
 				f_x_S1.Add(new Point(x1, 0, f_x));
 				xyzDataSeries3D_9.Append(x1, f_x, 0);
 			}
 			xyzDataSeries3D_9.SeriesName = "f(x/S1)";
 			PointLineSeries3D.DataSeries = xyzDataSeries3D_9;
 			// построение плотности проекции f(x/S2)
-			dispersion_x2 = DispersionX(set_p_2, average_x2);
+			dispersion_x2 = Math_TPR.DispersionX(set_p_2, average_x2);
 			sigma_x2 = Math.Sqrt(dispersion_x2);
 			double x2 = average_x2 - sigma_x2 * 3;
 			for (int i = 0; i < n_2 * 18; i++)
 			{
 				x2 += sigma_x2 / (n_2 * 3);
-				double f_x = func_Gauss(x2, sigma_x2, average_x2);
+				double f_x = Math_TPR.func_Gauss(x2, sigma_x2, average_x2);
 				f_x_S2.Add(new Point(x2, 0, f_x));
 				xyzDataSeries3D_10.Append(x2, f_x, 0);
 			}
 			xyzDataSeries3D_10.SeriesName = "f(x/S2)";
 			PointLineSeries3D_1.DataSeries = xyzDataSeries3D_10;
 			// построение плотности проекции f(y/S1)
-			dispersion_y1 = DispersionY(set_p_1, average_y1);
+			dispersion_y1 = Math_TPR.DispersionY(set_p_1, average_y1);
 			sigma_y1 = Math.Sqrt(dispersion_y1);
 			double y1 = average_y1 - sigma_y1 * 3;
 			for (int i = 0; i < n_1*18; i++)
 			{
 				y1 += sigma_y1 / (n_1 * 3);
-				double f_x = func_Gauss(y1, sigma_y1, average_y1);
+				double f_x = Math_TPR.func_Gauss(y1, sigma_y1, average_y1);
 				f_y_S1.Add(new Point(0, y1, f_x));
 				xyzDataSeries3D_11.Append(0, f_x, y1);
 			}
 			xyzDataSeries3D_11.SeriesName = "f(y/S1)";
 			PointLineSeries3D_2.DataSeries = xyzDataSeries3D_11;
 			// построение плотности проекции f(y/S2)
-			dispersion_y2 = DispersionY(set_p_2, average_y2);
+			dispersion_y2 = Math_TPR.DispersionY(set_p_2, average_y2);
 			sigma_y2 = Math.Sqrt(dispersion_y2);
 			double y2 = average_y2 - sigma_y2 * 3;
 			for (int i = 0; i < n_2 * 18; i++)
 			{
 				y2 += sigma_y2 / (n_2 * 3);
-				double f_x = func_Gauss(y2, sigma_y2, average_y2);
+				double f_x = Math_TPR.func_Gauss(y2, sigma_y2, average_y2);
 				f_y_S2.Add(new Point(0, y2, f_x));
 				xyzDataSeries3D_12.Append(0, f_x, y2);
 			}
@@ -344,7 +314,7 @@ namespace TPR2
 			}
 			for (int i = 0; i < points.Count; i++)
 			{
-				otnosh_f = func_Gauss(points[i].Return_Value_x(), sigma_x1, average_x1) / func_Gauss(points[i].Return_Value_x(), sigma_x2, average_x2);
+				otnosh_f = Math_TPR.func_Gauss(points[i].Return_Value_x(), sigma_x1, average_x1) / Math_TPR.func_Gauss(points[i].Return_Value_x(), sigma_x2, average_x2);
 				otnosh_C = ((C12 - C22) * (p2)) / ((C21 - C11) * (p1));
 				if (Math.Abs(otnosh_f - otnosh_C) < 0.001)
 				{
@@ -393,7 +363,7 @@ namespace TPR2
 			}
 			for (int i = 0; i < points.Count; i++)
 			{
-				otnosh_f = Math.Abs(func_der_Gauss(points[i].Return_Value_x(), sigma_x1, average_x1) / func_der_Gauss(points[i].Return_Value_x(), sigma_x2, average_x2) );
+				otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].Return_Value_x(), sigma_x1, average_x1) / Math_TPR.func_der_Gauss(points[i].Return_Value_x(), sigma_x2, average_x2) );
 				otnosh_C = p2 / p1;
 				if (Math.Abs(otnosh_f - otnosh_C) < 0.001)
 				{
@@ -449,7 +419,7 @@ namespace TPR2
 			}
 			for (int i = 0; i < points.Count; i++)
 			{
-				otnosh_f = func_Gauss(points[i].Return_Value_y(), sigma_y1, average_y1) / func_Gauss(points[i].Return_Value_y(), sigma_y2, average_y2);
+				otnosh_f = Math_TPR.func_Gauss(points[i].Return_Value_y(), sigma_y1, average_y1) / Math_TPR.func_Gauss(points[i].Return_Value_y(), sigma_y2, average_y2);
 				otnosh_C = ((C12 - C22) * (p2)) / ((C21 - C11) * (p1));
 				if (Math.Abs(otnosh_f - otnosh_C) < 0.001)
 				{
@@ -497,7 +467,7 @@ namespace TPR2
 			}
 			for (int i = 0; i < points.Count; i++)
 			{
-				otnosh_f = Math.Abs(func_der_Gauss(points[i].Return_Value_y(), sigma_y1, average_y1) / func_der_Gauss(points[i].Return_Value_y(), sigma_y2, average_y2));
+				otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].Return_Value_y(), sigma_y1, average_y1) / Math_TPR.func_der_Gauss(points[i].Return_Value_y(), sigma_y2, average_y2));
 				otnosh_C = p2 / p1;
 				if (Math.Abs(otnosh_f - otnosh_C) < 0.001)
 				{
@@ -549,7 +519,7 @@ namespace TPR2
 				if (Math.Abs(x - points[i].Return_Value_x()) < 0.001)
 				{
 					// f`(x/S1)/f`(x/S2)
-					otnosh_f = Math.Abs(func_der_Gauss(points[i].Return_Value_x(), sigma_x1, average_x1) / func_der_Gauss(points[i].Return_Value_x(), sigma_x2, average_x2));
+					otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].Return_Value_x(), sigma_x1, average_x1) / Math_TPR.func_der_Gauss(points[i].Return_Value_x(), sigma_x2, average_x2));
 					otnosh_C = p2 / p1;
 					if (otnosh_f >= otnosh_C)
 					{
@@ -606,7 +576,7 @@ namespace TPR2
 				if (Math.Abs(y - points[i].Return_Value_y()) < 0.001)
 				{
 					// f`(y/S1)/f`(y/S2)
-					otnosh_f = Math.Abs(func_der_Gauss(points[i].Return_Value_y(), sigma_y1, average_y1) / func_der_Gauss(points[i].Return_Value_y(), sigma_y2, average_y2));
+					otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].Return_Value_y(), sigma_y1, average_y1) / Math_TPR.func_der_Gauss(points[i].Return_Value_y(), sigma_y2, average_y2));
 					otnosh_C = p2 / p1;
 					if (otnosh_f >= otnosh_C)
 					{
@@ -625,6 +595,13 @@ namespace TPR2
 		private void button7_Click(object sender, RoutedEventArgs e)
 		{
 			Environment.Exit(0);
+		}
+
+		private void Button_Click_1(object sender, RoutedEventArgs e)
+		{
+			instructions.Close();
+			instructions = new Instructions();
+			instructions.Show();
 		}
 	}
 }
