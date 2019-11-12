@@ -301,8 +301,6 @@ namespace TPR2
 		/*Определение порогового значения x по условию минимума числа ошибочных решений*/
 		private void button2_Click(object sender, RoutedEventArgs e)
 		{
-			double otnosh_f = 0.0;
-			double otnosh_C = 0.0;
 			double x_por = 0.0;
 			double p1 = 0.0;
 			double p2 = 0.0;
@@ -318,32 +316,8 @@ namespace TPR2
 			{
 				MessageBox.Show(ex.Message);
 			}
-			List<Point> points = new List<Point>();
-			points = f_x_S1;
-			points.AddRange(f_x_S2);
-			for (int i = 0; i < points.Count; i++)
-			{
-				for (int j = 0; j < points.Count; j++)
-				{
-					if (points[i].Return_Value_x() > points[i].Return_Value_x())
-					{
-						Point swap = points[i];
-						points[i] = points[j];
-						points[j] = swap;
-					}
-				}
-			}
-			for (int i = 0; i < points.Count; i++)
-			{
-				otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].Return_Value_x(), sigma_x1, average_x1) / Math_TPR.func_der_Gauss(points[i].Return_Value_x(), sigma_x2, average_x2) );
-				otnosh_C = p2 / p1;
-				if (Math.Abs(otnosh_f - otnosh_C) < 0.001)
-				{
-					x_por = points[i].Return_Value_x();
-					label11.Content = "X(пор.)= " + x_por.ToString();
-					break;
-				}				
-			}			
+			x_por = Math_TPR.DetermThresholdValuesMinNumberOfErroneousDecisions(f_x_S1, f_x_S2, p1, p2, true, sigma_x1, sigma_x2, average_x1, average_x2);
+			label11.Content = "X(пор.)= " + x_por.ToString();
 		}
 		/*Определение порогового значения y по условию минимума среднего риска*/
 		private void button3_Click(object sender, RoutedEventArgs e)
@@ -380,8 +354,6 @@ namespace TPR2
 		/*Определение порогового значения y по условию минимума числа ошибочных решений*/
 		private void button4_Click(object sender, RoutedEventArgs e)
 		{
-			double otnosh_f = 0.0;
-			double otnosh_C = 0.0;
 			double y_por = 0.0;
 			double p1 = 0.0;
 			double p2 = 0.0;
@@ -397,32 +369,9 @@ namespace TPR2
 			{
 				MessageBox.Show(ex.Message);
 			}
-			List<Point> points = new List<Point>();
-			points = f_y_S1;
-			points.AddRange(f_y_S2);
-			for (int i = 0; i < points.Count; i++)
-			{
-				for (int j = 0; j < points.Count; j++)
-				{
-					if (points[i].Return_Value_y() < points[i].Return_Value_y())
-					{
-						Point swap = points[i];
-						points[i] = points[j];
-						points[j] = swap;
-					}
-				}
-			}
-			for (int i = 0; i < points.Count; i++)
-			{
-				otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].Return_Value_y(), sigma_y1, average_y1) / Math_TPR.func_der_Gauss(points[i].Return_Value_y(), sigma_y2, average_y2));
-				otnosh_C = p2 / p1;
-				if (Math.Abs(otnosh_f - otnosh_C) < 0.001)
-				{
-					y_por = points[i].Return_Value_y();
-					label11_Copy.Content = "Y(пор.)= " + y_por.ToString();
-					break;
-				}
-			}
+			y_por = Math_TPR.DetermThresholdValuesMinNumberOfErroneousDecisions(f_y_S1, f_y_S2, p1, p2, false,
+				sigma_y1, sigma_y2, average_y1, average_y2);
+			label11_Copy.Content = "Y(пор.)= " + y_por.ToString();			
 		}
 		/*Проверка с помощью критерия Зигерта-Котельникова по X*/
 		private void button5_Click(object sender, RoutedEventArgs e)

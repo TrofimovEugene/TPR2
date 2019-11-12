@@ -63,7 +63,7 @@ namespace TPR2.Classes
 				{
 					for (int j = 0; j < points.Count; j++)
 					{
-						if (points[i].Return_Value_x() > points[i].Return_Value_x())
+						if (points[i].Return_Value_x() > points[j].Return_Value_x())
 						{
 							Point swap = points[i];
 							points[i] = points[j];
@@ -88,7 +88,7 @@ namespace TPR2.Classes
 				{
 					for (int j = 0; j < points.Count; j++)
 					{
-						if (points[i].Return_Value_y() > points[i].Return_Value_y())
+						if (points[i].Return_Value_y() < points[j].Return_Value_y())
 						{
 							Point swap = points[i];
 							points[i] = points[j];
@@ -108,6 +108,67 @@ namespace TPR2.Classes
 				}
 			}
 			return por_val;
+		}
+		public static double DetermThresholdValuesMinNumberOfErroneousDecisions(List<Point> f_s1, List<Point> f_s2, double p_1, double p_2, bool x_or_y,
+			double sigma_1, double sigma_2, double mu_1, double mu_2)
+		{
+			double otnosh_f = 0.0;
+			double otnosh_C = 0.0;
+			double por_value = 0.0;
+			List<Point> points = new List<Point>();
+			points = f_s1;
+			points.AddRange(f_s2);
+			if (x_or_y == true)
+			{
+				for (int i = 0; i < points.Count; i++)
+				{
+					for (int j = 0; j < points.Count; j++)
+					{
+						if (points[i].Return_Value_x() > points[j].Return_Value_x())
+						{
+							Point swap = points[i];
+							points[i] = points[j];
+							points[j] = swap;
+						}
+					}
+				}
+				for (int i = 0; i < points.Count; i++)
+				{
+					otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].Return_Value_x(), sigma_1, mu_1) / Math_TPR.func_der_Gauss(points[i].Return_Value_x(), sigma_2, mu_2));
+					otnosh_C = p_2 / p_1;
+					if (Math.Abs(otnosh_f - otnosh_C) < 0.001)
+					{
+						por_value = points[i].Return_Value_x();
+						break;
+					}
+				}
+			}
+			else
+			{
+				for (int i = 0; i < points.Count; i++)
+				{
+					for (int j = 0; j < points.Count; j++)
+					{
+						if (points[i].Return_Value_y() > points[j].Return_Value_y())
+						{
+							Point swap = points[i];
+							points[i] = points[j];
+							points[j] = swap;
+						}
+					}
+				}
+				for (int i = 0; i < points.Count; i++)
+				{
+					otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].Return_Value_y(), sigma_1, mu_1) / Math_TPR.func_der_Gauss(points[i].Return_Value_y(), sigma_2, mu_2));
+					otnosh_C = p_2 / p_1;
+					if (Math.Abs(otnosh_f - otnosh_C) < 0.001)
+					{
+						por_value = points[i].Return_Value_y();
+						break;
+					}
+				}
+			}
+			return por_value;
 		}
 	}
 }
