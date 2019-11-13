@@ -51,6 +51,7 @@ namespace TPR2
 			instructions.Show();
 			instructions.Activate();
 		}
+		
 		private void button_Click(object sender, RoutedEventArgs e)
 		{
 			f_x_S1 = new List<Point>();
@@ -135,55 +136,41 @@ namespace TPR2
 			ScatterSeries3D_1.DataSeries = xyzDataSeries3D_1;
 			ScatterSeries3D_2.DataSeries = xyzDataSeries3D_2;
 
-			double cov_1 = 0.0;
-			for (int j = 0; j < n_1; j++)
-			{
-				cov_1 += (set_p_1[j].Return_Value_x() - mu_1_x) * (set_p_1[j].Return_Value_y() - mu_1_y);
-			}
-			cov_1 = cov_1 / (n_1-1);
-			double r = cov_1 / (sigma_1_x * sigma_1_y);
-			double k = 1 / (2 * Math.PI * sigma_1_x * sigma_1_y * Math.Sqrt(1 - r * r));
+			double ro_1 = Math_TPR.CalculationOfCorrelationCoefficient(set_p_1, mu_1_x, mu_1_y, sigma_1_x, sigma_1_x);
 			for (int i = 0; i < n_1; i++)
 			{
 				int x = i;
 				int z = i;
 				double xVal = set_p_1[i].Return_Value_x();
 				double zVal = set_p_1[i].Return_Value_y();
-				set_p_1[i].Set_Value_z(k * Math.Exp(-(1 / (2 * (1 - r * r))) * ((((xVal - mu_1_x) * (xVal - mu_1_x)) / (sigma_1_x * sigma_1_x)) - (r * 2 * (xVal - mu_1_x) * (zVal - mu_1_y)) / (sigma_1_x * sigma_1_y) + (((zVal - mu_1_y) * (zVal - mu_1_y)) / (sigma_1_y * sigma_1_y)))));
+				set_p_1[i].Set_Value_z(Math_TPR.func_Gauss_XY(xVal, zVal, sigma_1_x, sigma_1_y, mu_1_x, mu_1_y, ro_1));
 				// построение распределения
 				xyzDataSeries3D_3.Append(xVal, set_p_1[i].Return_Value_z(), zVal);
 				// построение проекции на оси x и y
-				xyzDataSeries3D_5.Append(xVal, set_p_1[i].Return_Value_z(), 0);
-				xyzDataSeries3D_6.Append(0, set_p_1[i].Return_Value_z(), zVal);
+				xyzDataSeries3D_4.Append(xVal, set_p_1[i].Return_Value_z(), 0);
+				xyzDataSeries3D_5.Append(0, set_p_1[i].Return_Value_z(), zVal);
 			}
 			xyzDataSeries3D_3.SeriesName = "f(x,y/S1)";
 			Column1.DataSeries = xyzDataSeries3D_3;
-			xyzDataSeries3D_5.SeriesName = "f(x,0/S1)";
-			Column3.DataSeries = xyzDataSeries3D_5;
-			xyzDataSeries3D_6.SeriesName = "f(0,y/S1)";
-			Column4.DataSeries = xyzDataSeries3D_6;
+			xyzDataSeries3D_4.SeriesName = "f(x,0/S1)";
+			Column3.DataSeries = xyzDataSeries3D_4;
+			xyzDataSeries3D_5.SeriesName = "f(0,y/S1)";
+			Column4.DataSeries = xyzDataSeries3D_5;
 			
-			double cov_2 = 0.0;
-			for (int j = 0; j < n_2; j++)
-			{
-				cov_2 += (set_p_2[j].Return_Value_x() - mu_2_x) * (set_p_2[j].Return_Value_y() - mu_2_y);
-			}
-			cov_2 = cov_2 / (n_2-1);
-			double r_2 = cov_2 / (sigma_2_x * sigma_2_y);
-			double k_2 = 1 / (2 * Math.PI * sigma_2_x * sigma_2_y * Math.Sqrt(1 - r * r));
+			double ro_2 = Math_TPR.CalculationOfCorrelationCoefficient(set_p_2, mu_2_x, mu_2_y, sigma_2_x, sigma_2_x);
 			for (int i = 0; i < n_2; i++)
 			{
 				double xVal = set_p_2[i].Return_Value_x();
 				double zVal = set_p_2[i].Return_Value_y();
-				set_p_2[i].Set_Value_z(k_2 * Math.Exp(-(1 / (2 * (1 - r_2 * r_2))) * ((((xVal - mu_2_x) * (xVal - mu_2_x)) / (sigma_2_x * sigma_2_x)) - (r_2 * 2 * (xVal - mu_2_x) * (zVal - mu_2_y)) / (sigma_2_x * sigma_2_y) + (((zVal - mu_2_y) * (zVal - mu_2_y)) / (sigma_2_y * sigma_2_y)))));
+				set_p_2[i].Set_Value_z(Math_TPR.func_Gauss_XY(xVal, zVal, sigma_2_x, sigma_2_y, mu_2_x, mu_2_y, ro_2));
 				// построение распределения
-				xyzDataSeries3D_4.Append(xVal, set_p_2[i].Return_Value_z(), zVal);
+				xyzDataSeries3D_6.Append(xVal, set_p_2[i].Return_Value_z(), zVal);
 				// построение проекции на оси x и y
 				xyzDataSeries3D_7.Append(xVal, set_p_2[i].Return_Value_z(), 0);
 				xyzDataSeries3D_8.Append(0, set_p_2[i].Return_Value_z(), zVal);
 			}
-			xyzDataSeries3D_4.SeriesName = "f(x,y/S2)";
-			Column2.DataSeries = xyzDataSeries3D_4;
+			xyzDataSeries3D_6.SeriesName = "f(x,y/S2)";
+			Column2.DataSeries = xyzDataSeries3D_6;
 			xyzDataSeries3D_7.SeriesName = "f(x,0/S2)";
 			Column5.DataSeries = xyzDataSeries3D_7;
 			xyzDataSeries3D_8.SeriesName = "f(0,y/S2)";
@@ -251,21 +238,6 @@ namespace TPR2
 			xyzDataSeries3D_12.SeriesName = "f(y/S2)";
 			PointLineSeries3D_3.DataSeries = xyzDataSeries3D_12;
 
-			// вывод значений точек образов S1 и S2 на экран
-			textBox17.Text += "Образ S1\n";
-			foreach (var point in set_p_1)
-			{
-				textBox17.Text += "x= " + point.Return_Value_x().ToString() + "\n"
-								+ "y= " + point.Return_Value_y().ToString() + "\n"
-								+ "f(x,y)= " + point.Return_Value_z().ToString() + "\n\n";
-			}
-			textBox17.Text += "Образ S2\n";
-			foreach (var point in set_p_2)
-			{
-				textBox17.Text += "x= " + point.Return_Value_x().ToString() + "\n"
-								+ "y= " + point.Return_Value_y().ToString() + "\n"
-								+ "f(x,y)= " + point.Return_Value_z().ToString() + "\n\n";
-			}
 		} 
 		/*Определение порогового значения x по условию минимума среднего риска*/
 		private void button1_Click(object sender, RoutedEventArgs e)
@@ -296,7 +268,7 @@ namespace TPR2
 			}
 			x_por = Math_TPR.DetermThresholdValuesMinAverageRisk(f_x_S1, f_x_S2, C11, C12, C21, C22, p1, p2, true, 
 				sigma_x1, sigma_x2, average_x1, average_x2);
-			label24.Content = "X(пор.)= " + x_por.ToString();
+			textBox10.Text = x_por.ToString();
 		}
 		/*Определение порогового значения x по условию минимума числа ошибочных решений*/
 		private void button2_Click(object sender, RoutedEventArgs e)
@@ -316,8 +288,9 @@ namespace TPR2
 			{
 				MessageBox.Show(ex.Message);
 			}
-			x_por = Math_TPR.DetermThresholdValuesMinNumberOfErroneousDecisions(f_x_S1, f_x_S2, p1, p2, true, sigma_x1, sigma_x2, average_x1, average_x2);
-			label11.Content = "X(пор.)= " + x_por.ToString();
+			x_por = Math_TPR.DetermThresholdValuesMinNumberOfErroneousDecisions(f_x_S1, f_x_S2, p1, p2, true,
+				sigma_x1, sigma_x2, average_x1, average_x2);
+			textBox11.Text = x_por.ToString();
 		}
 		/*Определение порогового значения y по условию минимума среднего риска*/
 		private void button3_Click(object sender, RoutedEventArgs e)
@@ -349,7 +322,7 @@ namespace TPR2
 
 			y_por = Math_TPR.DetermThresholdValuesMinAverageRisk(f_y_S1, f_y_S2, C11, C12, C21, C22, p1, p2, false, 
 				sigma_y1, sigma_y2, average_y1, average_y2);
-			label24_Copy.Content = "Y(пор.)= " + y_por.ToString();		
+			textBox17.Text = y_por.ToString();		
 		}
 		/*Определение порогового значения y по условию минимума числа ошибочных решений*/
 		private void button4_Click(object sender, RoutedEventArgs e)
@@ -371,14 +344,12 @@ namespace TPR2
 			}
 			y_por = Math_TPR.DetermThresholdValuesMinNumberOfErroneousDecisions(f_y_S1, f_y_S2, p1, p2, false,
 				sigma_y1, sigma_y2, average_y1, average_y2);
-			label11_Copy.Content = "Y(пор.)= " + y_por.ToString();			
+			textBox21.Text = y_por.ToString();		
 		}
 		/*Проверка с помощью критерия Зигерта-Котельникова по X*/
 		private void button5_Click(object sender, RoutedEventArgs e)
 		{
 			double x = 0.0;
-			double otnosh_f = 0.0;
-			double otnosh_C = 0.0;
 			double p1 = 0.0;
 			double p2 = 0.0;
 			string input_buffer;
@@ -395,47 +366,13 @@ namespace TPR2
 			{
 				MessageBox.Show(ex.Message);
 			}
-			List<Point> points = new List<Point>();
-			points = f_x_S1;
-			points.AddRange(f_x_S2);
-			for (int i = 0; i < points.Count; i++)
-			{
-				for (int j = 0; j < points.Count; j++)
-				{
-					if (points[i].Return_Value_x() > points[i].Return_Value_x())
-					{
-						Point swap = points[i];
-						points[i] = points[j];
-						points[j] = swap;
-					}
-				}
-			}
-			for (int i = 0; i < points.Count; i++)
-			{
-				if (Math.Abs(x - points[i].Return_Value_x()) < 0.001)
-				{
-					// f`(x/S1)/f`(x/S2)
-					otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].Return_Value_x(), sigma_x1, average_x1) / Math_TPR.func_der_Gauss(points[i].Return_Value_x(), sigma_x2, average_x2));
-					otnosh_C = p2 / p1;
-					if (otnosh_f >= otnosh_C)
-					{
-						label28.Content = "принадлежит S1";
-						break;
-					}
-					else
-					{
-						label28.Content = "принадлежит S2";
-						break;
-					}
-				}
-			}
+			textBox22.Text = Math_TPR.DeterminationOfTheSiegert_Kotelnikov(f_x_S1, f_x_S2, x, p1, p2, 
+				sigma_x1, sigma_x2, average_x1, average_x2, true);
 		}
 		/*Проверка с помощью критерия Зигерта-Котельникова по Y*/
 		private void button6_Click(object sender, RoutedEventArgs e)
 		{
 			double y = 0.0;
-			double otnosh_f = 0.0;
-			double otnosh_C = 0.0;
 			double p1 = 0.0;
 			double p2 = 0.0;
 			string input_buffer;
@@ -452,40 +389,8 @@ namespace TPR2
 			{
 				MessageBox.Show(ex.Message);
 			}
-			List<Point> points = new List<Point>();
-			points = f_y_S1;
-			points.AddRange(f_y_S2);
-			for (int i = 0; i < points.Count; i++)
-			{
-				for (int j = 0; j < points.Count; j++)
-				{
-					if (points[i].Return_Value_y() > points[i].Return_Value_y())
-					{
-						Point swap = points[i];
-						points[i] = points[j];
-						points[j] = swap;
-					}
-				}
-			}
-			for (int i = 0; i < points.Count; i++)
-			{
-				if (Math.Abs(y - points[i].Return_Value_y()) < 0.001)
-				{
-					// f`(y/S1)/f`(y/S2)
-					otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].Return_Value_y(), sigma_y1, average_y1) / Math_TPR.func_der_Gauss(points[i].Return_Value_y(), sigma_y2, average_y2));
-					otnosh_C = p2 / p1;
-					if (otnosh_f >= otnosh_C)
-					{
-						label29.Content = "принадлежит S1";
-						break;
-					}
-					else
-					{
-						label29.Content = "принадлежит S2";
-						break;
-					}
-				}
-			}
+			textBox23.Text = Math_TPR.DeterminationOfTheSiegert_Kotelnikov(f_y_S1, f_y_S2, y, p1, p2, 
+				sigma_y1, sigma_y2, average_y1, average_y2, false);
 		}
 
 		private void button7_Click(object sender, RoutedEventArgs e)

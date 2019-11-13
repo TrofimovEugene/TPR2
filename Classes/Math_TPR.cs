@@ -170,5 +170,106 @@ namespace TPR2.Classes
 			}
 			return por_value;
 		}
+		/*Функция вычисления коэффициента корреляции ро*/
+		public static double CalculationOfCorrelationCoefficient(List<Point> set_points, double mu_x, double mu_y, double sigma_x, double sigma_y)
+		{
+			double result = 0.0;
+			for (int i = 0; i < set_points.Count; i++)
+			{
+				result += (set_points[i].Return_Value_x() - mu_x) * (set_points[i].Return_Value_y() - mu_y);
+			}
+			result = result / (set_points.Count - 1);
+			result = result / (sigma_x * sigma_y);
+			return result;
+		}
+		/*Фукнция Гаусса для многомерного нормального распределения*/
+		public static double func_Gauss_XY(double x, double y, double sigma_x, double sigma_y, double mu_x, double mu_y, double ro)
+		{
+			double result = 0.0;
+			double k = 1 / (2 * Math.PI * sigma_x * sigma_y * Math.Sqrt(1 - ro * ro));
+			result = k * Math.Exp(-(1 / (2 * (1 - ro * ro))) * ((((x - mu_x) * (x - mu_x)) / (sigma_x * sigma_x)) -
+				(ro * 2 * (x - mu_x) * (y - mu_y)) / (sigma_x * sigma_y) + (((y - mu_y) * (y - mu_y)) / (sigma_y * sigma_y))));
+			return result;
+		}
+
+		public static string DeterminationOfTheSiegert_Kotelnikov(List<Point> f_S1, List<Point> f_S2, double x, double p_1, double p_2,
+			double sigma_1, double sigma_2, double mu_1, double mu_2, bool x_or_y)
+		{
+			string result = "";
+			double otnosh_f = 0.0;
+			double otnosh_C = 0.0;
+			List<Point> points = new List<Point>();
+			points = f_S1;
+			points.AddRange(f_S2);
+			if (x_or_y == true)
+			{
+				for (int i = 0; i < points.Count; i++)
+				{
+					for (int j = 0; j < points.Count; j++)
+					{
+						if (points[i].Return_Value_x() < points[j].Return_Value_x())
+						{
+							Point swap = points[i];
+							points[i] = points[j];
+							points[j] = swap;
+						}
+					}
+				}
+				for (int i = 0; i < points.Count; i++)
+				{
+					if (Math.Abs(x - points[i].Return_Value_x()) < 0.01)
+					{
+						// f`(x/S1)/f`(x/S2)
+						otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].Return_Value_x(), sigma_1, mu_1) / Math_TPR.func_der_Gauss(points[i].Return_Value_x(), sigma_2, mu_2));
+						otnosh_C = p_2 / p_1;
+						if (otnosh_f >= otnosh_C)
+						{
+							result = "S1";
+							break;
+						}
+						else
+						{
+							result = "S2";
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				for (int i = 0; i < points.Count; i++)
+				{
+					for (int j = 0; j < points.Count; j++)
+					{
+						if (points[i].Return_Value_y() > points[j].Return_Value_y())
+						{
+							Point swap = points[i];
+							points[i] = points[j];
+							points[j] = swap;
+						}
+					}
+				}
+				for (int i = 0; i < points.Count; i++)
+				{
+					if (Math.Abs(x - points[i].Return_Value_y()) < 0.01)
+					{
+						// f`(y/S1)/f`(y/S2)
+						otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].Return_Value_y(), sigma_1, mu_1) / Math_TPR.func_der_Gauss(points[i].Return_Value_y(), sigma_2, mu_2));
+						otnosh_C = p_2 / p_1;
+						if (otnosh_f >= otnosh_C)
+						{
+							result = "S1";
+							break;
+						}
+						else
+						{
+							result = "S2";
+							break;
+						}
+					}
+				}
+			}
+			return result;
+		}
 	}
 }
