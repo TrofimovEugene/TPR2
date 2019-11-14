@@ -69,8 +69,8 @@ namespace TPR2
 			XyzDataSeries3D<double> xyzDataSeries3D_8 = new XyzDataSeries3D<double>();
 			XyzDataSeries3D<double> xyzDataSeries3D_9;
 			XyzDataSeries3D<double> xyzDataSeries3D_10;
-			XyzDataSeries3D<double> xyzDataSeries3D_11 = new XyzDataSeries3D<double>();
-			XyzDataSeries3D<double> xyzDataSeries3D_12 = new XyzDataSeries3D<double>();
+			XyzDataSeries3D<double> xyzDataSeries3D_11;
+			XyzDataSeries3D<double> xyzDataSeries3D_12;
 			n_1 = 0;
 			n_2 = 0;
 			double mu_1_x = 0.0;

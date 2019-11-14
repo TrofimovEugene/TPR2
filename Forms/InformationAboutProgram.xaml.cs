@@ -18,7 +18,7 @@ namespace TPR2.Forms
 				string p = Directory.GetCurrentDirectory();
 				p = p.Replace("bin", "");
 				p = p.Replace("Debug", "");
-				p += @"Files\TPR_Lektsia_4.xps";
+				p += @"Files\InformationAboutProgram.xps";
 				XpsDocument doc = new XpsDocument(p, FileAccess.Read);
 				documentViewer.Document = doc.GetFixedDocumentSequence();
 				doc.Close();

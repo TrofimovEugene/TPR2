@@ -187,6 +187,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Files\InformationAboutProgram.xps" />
     <None Include="Files\Theory.xps" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
