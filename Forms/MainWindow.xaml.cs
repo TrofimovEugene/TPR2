@@ -7,6 +7,7 @@ using SciChart.Charting3D.Axis;
 using SciChart.Charting3D.Model;
 using SciChart.Charting3D.Modifiers;
 using TPR2.Classes;
+using TPR2.Forms;
 
 namespace TPR2
 {
@@ -15,10 +16,10 @@ namespace TPR2
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		List<Point> f_x_S1;
-		List<Point> f_x_S2;
-		List<Point> f_y_S1;
-		List<Point> f_y_S2;
+		List<Point> f_x_S1 = new List<Point>();
+		List<Point> f_x_S2 = new List<Point>();
+		List<Point> f_y_S1 = new List<Point>();
+		List<Point> f_y_S2 = new List<Point>();
 		double sigma_x1 = 0.0;
 		double sigma_x2 = 0.0;
 		double sigma_y1 = 0.0;
@@ -30,6 +31,7 @@ namespace TPR2
 		int n_1 = 0;
 		int n_2 = 0;
 		Instructions instructions;
+		InformationAboutProgram informationAboutProgram;
 		public MainWindow()
 		{
 			var sciChart3DSurface = new SciChart3DSurface()
@@ -50,14 +52,13 @@ namespace TPR2
 			instructions = new Instructions();
 			instructions.Show();
 			instructions.Activate();
+			informationAboutProgram = new InformationAboutProgram();
+			informationAboutProgram.Show();
+			informationAboutProgram.Activate();
+
 		}
-		
 		private void button_Click(object sender, RoutedEventArgs e)
 		{
-			f_x_S1 = new List<Point>();
-			f_x_S2 = new List<Point>();
-			f_y_S1 = new List<Point>();
-			f_y_S2 = new List<Point>();
 			XyzDataSeries3D<double> xyzDataSeries3D_1 = new XyzDataSeries3D<double>();
 			XyzDataSeries3D<double> xyzDataSeries3D_2 = new XyzDataSeries3D<double>();
 			XyzDataSeries3D<double> xyzDataSeries3D_3 = new XyzDataSeries3D<double>();
@@ -66,8 +67,8 @@ namespace TPR2
 			XyzDataSeries3D<double> xyzDataSeries3D_6 = new XyzDataSeries3D<double>();
 			XyzDataSeries3D<double> xyzDataSeries3D_7 = new XyzDataSeries3D<double>();
 			XyzDataSeries3D<double> xyzDataSeries3D_8 = new XyzDataSeries3D<double>();
-			XyzDataSeries3D<double> xyzDataSeries3D_9 = new XyzDataSeries3D<double>();
-			XyzDataSeries3D<double> xyzDataSeries3D_10 = new XyzDataSeries3D<double>();
+			XyzDataSeries3D<double> xyzDataSeries3D_9;
+			XyzDataSeries3D<double> xyzDataSeries3D_10;
 			XyzDataSeries3D<double> xyzDataSeries3D_11 = new XyzDataSeries3D<double>();
 			XyzDataSeries3D<double> xyzDataSeries3D_12 = new XyzDataSeries3D<double>();
 			n_1 = 0;
@@ -177,67 +178,61 @@ namespace TPR2
 			Column6.DataSeries = xyzDataSeries3D_8;
 
 			// построение плотностей проекций множеств S1 и S2
+			// данные полученные из практически заданных СВ величин
 			average_x1 = set1.calculate_Average_Value_x();
 			average_y1 = set1.calculate_Average_Value_y();
-			double dispersion_x1 = 0.0;
-			double dispersion_y1 = 0.0;
+			double dispersion_x1;
+			double dispersion_y1;
 			average_x2 = set2.calculate_Average_Value_x();
 			average_y2 = set2.calculate_Average_Value_y();
-			double dispersion_x2 = 0.0;
-			double dispersion_y2 = 0.0;
+			double dispersion_x2;
+			double dispersion_y2;
 			// построение плотности проекции f(x/S1)
 			dispersion_x1 = Math_TPR.DispersionX(set_p_1, average_x1);
 			sigma_x1 = Math.Sqrt(dispersion_x1);
-			double x1 = average_x1 - sigma_x1*3;
-			for (int i = 0; i < n_1*18; i++)
-			{
-				x1 += sigma_x1 / (n_1*3);
-				double f_x = Math_TPR.func_Gauss(x1, sigma_1_x, average_x1);
-				f_x_S1.Add(new Point(x1, 0, f_x));
-				xyzDataSeries3D_9.Append(x1, f_x, 0);
-			}
+			xyzDataSeries3D_9 = Math_TPR.f_x_Si(average_x1, sigma_x1, n_1, f_x_S1);
 			xyzDataSeries3D_9.SeriesName = "f(x/S1)";
 			PointLineSeries3D.DataSeries = xyzDataSeries3D_9;
 			// построение плотности проекции f(x/S2)
 			dispersion_x2 = Math_TPR.DispersionX(set_p_2, average_x2);
 			sigma_x2 = Math.Sqrt(dispersion_x2);
-			double x2 = average_x2 - sigma_x2 * 3;
-			for (int i = 0; i < n_2 * 18; i++)
-			{
-				x2 += sigma_x2 / (n_2 * 3);
-				double f_x = Math_TPR.func_Gauss(x2, sigma_x2, average_x2);
-				f_x_S2.Add(new Point(x2, 0, f_x));
-				xyzDataSeries3D_10.Append(x2, f_x, 0);
-			}
+			xyzDataSeries3D_10 = Math_TPR.f_x_Si(average_x2, sigma_x2, n_2, f_x_S2);
 			xyzDataSeries3D_10.SeriesName = "f(x/S2)";
 			PointLineSeries3D_1.DataSeries = xyzDataSeries3D_10;
 			// построение плотности проекции f(y/S1)
 			dispersion_y1 = Math_TPR.DispersionY(set_p_1, average_y1);
 			sigma_y1 = Math.Sqrt(dispersion_y1);
-			double y1 = average_y1 - sigma_y1 * 3;
-			for (int i = 0; i < n_1*18; i++)
-			{
-				y1 += sigma_y1 / (n_1 * 3);
-				double f_x = Math_TPR.func_Gauss(y1, sigma_y1, average_y1);
-				f_y_S1.Add(new Point(0, y1, f_x));
-				xyzDataSeries3D_11.Append(0, f_x, y1);
-			}
+			xyzDataSeries3D_11 = Math_TPR.f_y_Si(average_y1, sigma_y1, n_1, f_y_S1);
 			xyzDataSeries3D_11.SeriesName = "f(y/S1)";
 			PointLineSeries3D_2.DataSeries = xyzDataSeries3D_11;
 			// построение плотности проекции f(y/S2)
 			dispersion_y2 = Math_TPR.DispersionY(set_p_2, average_y2);
 			sigma_y2 = Math.Sqrt(dispersion_y2);
-			double y2 = average_y2 - sigma_y2 * 3;
-			for (int i = 0; i < n_2 * 18; i++)
-			{
-				y2 += sigma_y2 / (n_2 * 3);
-				double f_x = Math_TPR.func_Gauss(y2, sigma_y2, average_y2);
-				f_y_S2.Add(new Point(0, y2, f_x));
-				xyzDataSeries3D_12.Append(0, f_x, y2);
-			}
+			xyzDataSeries3D_12 = Math_TPR.f_y_Si(average_y2, sigma_y2, n_2, f_y_S2);
 			xyzDataSeries3D_12.SeriesName = "f(y/S2)";
 			PointLineSeries3D_3.DataSeries = xyzDataSeries3D_12;
-
+			/*
+			int xSize = 25;
+			int zSize = 25;
+			var meshDataSeries = new UniformGridDataSeries3D<double>(xSize, zSize)
+			{
+				StartX = 0,
+				StepX = 0.25,
+				StartZ = 0,
+				StepZ = 0.25,
+				SeriesName = "Uniform Surface Mesh",
+			};
+			for (int x = 0; x < xSize; x++)
+			{
+				for (int z = 0; z < zSize; z++)
+				{
+					double xVal = (double)x / (double)xSize * 6.25;
+					double zVal = (double)z / (double)zSize * 6.25;
+					double y = Math_TPR.func_Gauss_XY(xVal, zVal, sigma_1_x, sigma_1_y, average_x1, average_y1, ro_1);
+					meshDataSeries[z, x] = y;
+				}
+			}
+			surfaceMeshRenderableSeries.DataSeries = meshDataSeries;*/
 		} 
 		/*Определение порогового значения x по условию минимума среднего риска*/
 		private void button1_Click(object sender, RoutedEventArgs e)
@@ -266,7 +261,7 @@ namespace TPR2
 			{
 				MessageBox.Show(ex.Message);
 			}
-			x_por = Math_TPR.DetermThresholdValuesMinAverageRisk(f_x_S1, f_x_S2, C11, C12, C21, C22, p1, p2, true, 
+			x_por = Math_TPR.DetermThresholdValuesMinAverageRisk(C11, C12, C21, C22, p1, p2, 
 				sigma_x1, sigma_x2, average_x1, average_x2);
 			textBox10.Text = x_por.ToString();
 		}
@@ -320,7 +315,7 @@ namespace TPR2
 				MessageBox.Show(ex.Message);
 			}
 
-			y_por = Math_TPR.DetermThresholdValuesMinAverageRisk(f_y_S1, f_y_S2, C11, C12, C21, C22, p1, p2, false, 
+			y_por = Math_TPR.DetermThresholdValuesMinAverageRisk(C11, C12, C21, C22, p1, p2,  
 				sigma_y1, sigma_y2, average_y1, average_y2);
 			textBox17.Text = y_por.ToString();		
 		}
@@ -397,12 +392,18 @@ namespace TPR2
 		{
 			Environment.Exit(0);
 		}
-
 		private void Button_Click_1(object sender, RoutedEventArgs e)
 		{
 			instructions.Close();
 			instructions = new Instructions();
 			instructions.Show();
+		}
+
+		private void Button_Click_2(object sender, RoutedEventArgs e)
+		{
+			informationAboutProgram.Close();
+			informationAboutProgram = new InformationAboutProgram();
+			informationAboutProgram.Show();
 		}
 	}
 }

@@ -140,6 +140,10 @@
     </ApplicationDefinition>
     <Compile Include="Classes\Math_TPR.cs" />
     <Compile Include="Classes\Set_Point.cs" />
+    <Page Include="Forms\InformationAboutProgram.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Instructions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -151,6 +155,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\InformationAboutProgram.xaml.cs">
+      <DependentUpon>InformationAboutProgram.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Instructions.xaml.cs">
       <DependentUpon>Instructions.xaml</DependentUpon>
@@ -180,7 +187,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Files\TPR_Lektsia_4.xps" />
+    <None Include="Files\Theory.xps" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

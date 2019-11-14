@@ -3,14 +3,14 @@ using System.IO;
 using System.Windows;
 using System.Windows.Xps.Packaging;
 
-namespace TPR2
+namespace TPR2.Forms
 {
 	/// <summary>
-	/// Логика взаимодействия для Instructions.xaml
+	/// Логика взаимодействия для InformationAboutProgram.xaml
 	/// </summary>
-	public partial class Instructions : System.Windows.Window
+	public partial class InformationAboutProgram : Window
 	{
-		public Instructions()
+		public InformationAboutProgram()
 		{
 			InitializeComponent();
 			try
@@ -18,7 +18,7 @@ namespace TPR2
 				string p = Directory.GetCurrentDirectory();
 				p = p.Replace("bin", "");
 				p = p.Replace("Debug", "");
-				p += @"Files\Theory.xps";
+				p += @"Files\TPR_Lektsia_4.xps";
 				XpsDocument doc = new XpsDocument(p, FileAccess.Read);
 				documentViewer.Document = doc.GetFixedDocumentSequence();
 				doc.Close();
@@ -29,4 +29,3 @@ namespace TPR2
 		}
 	}
 }
-
