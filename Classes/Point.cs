@@ -9,9 +9,9 @@ namespace TPR2
     // класс, описывающий случаную точку
     public class Point
     {
-        private double x;
-        private double y;
-		private double z;
+        public double x { get; set; }
+		public double y { get; set; }
+		public double z { get; set; }
         // мат. ожидание по X
         public double mu_x;
         // мат. ожидание по Y
@@ -42,23 +42,5 @@ namespace TPR2
             x = nr.NextDouble() * sigma_x + mu_x;
             y = nr.NextDouble() * sigma_y + mu_y;
         }
-		public void Set_Value_z(double z)
-		{
-			this.z = z;
-		}
-        // возврат значения X
-        public double Return_Value_x()
-        {
-            return x;
-        }
-        // возврат значения Y
-        public double Return_Value_y()
-        {
-            return y;
-        }
-		public double Return_Value_z()
-		{
-			return z;
-		}
     }
 }

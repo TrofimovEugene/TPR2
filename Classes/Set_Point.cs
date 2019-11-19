@@ -43,7 +43,7 @@ namespace TPR2
             double result_average_x = 0.0;
             for (int i = 0; i < count_point; i++)
             {
-                result_average_x += set_of_Point[i].Return_Value_x();
+                result_average_x += set_of_Point[i].x;
             }
             return result_average_x / count_point;
         }
@@ -53,7 +53,7 @@ namespace TPR2
             double result_average_y = 0.0;
             for (int i = 0; i < count_point; i++)
             {
-                result_average_y += set_of_Point[i].Return_Value_y();
+                result_average_y += set_of_Point[i].y;
             }
             return result_average_y / count_point;
         }

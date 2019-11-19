@@ -16,7 +16,7 @@ namespace TPR2.Classes
 			double result = 0.0;
 			foreach (Point point in points)
 			{
-				result += (point.Return_Value_x() - average) * (point.Return_Value_x() - average);
+				result += (point.x - average) * (point.x - average);
 			}
 			result = result / points.Count;
 			return result;
@@ -27,7 +27,7 @@ namespace TPR2.Classes
 			double result = 0.0;
 			foreach (Point point in points)
 			{
-				result += (point.Return_Value_y() - average) * (point.Return_Value_y() - average);
+				result += (point.y - average) * (point.y - average);
 			}
 			result = result / points.Count;
 			return result;
@@ -89,7 +89,7 @@ namespace TPR2.Classes
 				{
 					for (int j = 0; j < points.Count; j++)
 					{
-						if (points[i].Return_Value_x() > points[j].Return_Value_x())
+						if (points[i].x > points[j].x)
 						{
 							Point swap = points[i];
 							points[i] = points[j];
@@ -99,11 +99,11 @@ namespace TPR2.Classes
 				}
 				for (int i = 0; i < points.Count; i++)
 				{
-					otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].Return_Value_x(), sigma_1, mu_1) / Math_TPR.func_der_Gauss(points[i].Return_Value_x(), sigma_2, mu_2));
+					otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].x, sigma_1, mu_1) / Math_TPR.func_der_Gauss(points[i].x, sigma_2, mu_2));
 					otnosh_C = p_2 / p_1;
 					if (Math.Abs(otnosh_f - otnosh_C) < 0.001)
 					{
-						por_value = points[i].Return_Value_x();
+						por_value = points[i].x;
 						break;
 					}
 				}
@@ -114,7 +114,7 @@ namespace TPR2.Classes
 				{
 					for (int j = 0; j < points.Count; j++)
 					{
-						if (points[i].Return_Value_y() > points[j].Return_Value_y())
+						if (points[i].y > points[j].y)
 						{
 							Point swap = points[i];
 							points[i] = points[j];
@@ -124,11 +124,11 @@ namespace TPR2.Classes
 				}
 				for (int i = 0; i < points.Count; i++)
 				{
-					otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].Return_Value_y(), sigma_1, mu_1) / Math_TPR.func_der_Gauss(points[i].Return_Value_y(), sigma_2, mu_2));
+					otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].y, sigma_1, mu_1) / Math_TPR.func_der_Gauss(points[i].y, sigma_2, mu_2));
 					otnosh_C = p_2 / p_1;
 					if (Math.Abs(otnosh_f - otnosh_C) < 0.001)
 					{
-						por_value = points[i].Return_Value_y();
+						por_value = points[i].y;
 						break;
 					}
 				}
@@ -141,7 +141,7 @@ namespace TPR2.Classes
 			double result = 0.0;
 			for (int i = 0; i < set_points.Count; i++)
 			{
-				result += (set_points[i].Return_Value_x() - mu_x) * (set_points[i].Return_Value_y() - mu_y);
+				result += (set_points[i].x - mu_x) * (set_points[i].y - mu_y);
 			}
 			result = result / (set_points.Count - 1);
 			result = result / (sigma_x * sigma_y);
@@ -172,7 +172,7 @@ namespace TPR2.Classes
 				{
 					for (int j = 0; j < points.Count; j++)
 					{
-						if (points[i].Return_Value_x() < points[j].Return_Value_x())
+						if (points[i].x < points[j].x)
 						{
 							Point swap = points[i];
 							points[i] = points[j];
@@ -182,10 +182,10 @@ namespace TPR2.Classes
 				}
 				for (int i = 0; i < points.Count; i++)
 				{
-					if (Math.Abs(x - points[i].Return_Value_x()) < 0.01)
+					if (Math.Abs(x - points[i].x) < 0.01)
 					{
 						// f`(x/S1)/f`(x/S2)
-						otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].Return_Value_x(), sigma_1, mu_1) / Math_TPR.func_der_Gauss(points[i].Return_Value_x(), sigma_2, mu_2));
+						otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].x, sigma_1, mu_1) / Math_TPR.func_der_Gauss(points[i].x, sigma_2, mu_2));
 						otnosh_C = p_2 / p_1;
 						if (otnosh_f >= otnosh_C)
 						{
@@ -206,7 +206,7 @@ namespace TPR2.Classes
 				{
 					for (int j = 0; j < points.Count; j++)
 					{
-						if (points[i].Return_Value_y() > points[j].Return_Value_y())
+						if (points[i].y > points[j].y)
 						{
 							Point swap = points[i];
 							points[i] = points[j];
@@ -216,10 +216,10 @@ namespace TPR2.Classes
 				}
 				for (int i = 0; i < points.Count; i++)
 				{
-					if (Math.Abs(x - points[i].Return_Value_y()) < 0.01)
+					if (Math.Abs(x - points[i].y) < 0.01)
 					{
 						// f`(y/S1)/f`(y/S2)
-						otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].Return_Value_y(), sigma_1, mu_1) / Math_TPR.func_der_Gauss(points[i].Return_Value_y(), sigma_2, mu_2));
+						otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].y, sigma_1, mu_1) / Math_TPR.func_der_Gauss(points[i].y, sigma_2, mu_2));
 						otnosh_C = p_2 / p_1;
 						if (otnosh_f >= otnosh_C)
 						{

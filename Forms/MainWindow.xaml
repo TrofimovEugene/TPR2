@@ -70,61 +70,40 @@
                     <s3D:SurfaceMeshRenderableSeries3D.MeshColorPalette>
                         <s3D:GradientColorPalette>
                             <s3D:GradientColorPalette.GradientStops>
-                                <GradientStop Offset="1" Color="DarkRed"/>
-                                <GradientStop Offset="0.9" Color="Red"/>
-                                <GradientStop Offset="0.7" Color="Yellow"/>
-                                <GradientStop Offset="0.5" Color="GreenYellow"/>
-                                <GradientStop Offset="0.3" Color="Cyan"/>
-                                <GradientStop Offset="0.1" Color="Blue"/>
-                                <GradientStop Offset="0.0" Color="#1D2C6B"/>
+                                <GradientStop Offset="1" Color="White"/>
+                                <GradientStop Offset="0.9" Color="White"/>
+                                <GradientStop Offset="0.7" Color="White"/>
+                                <GradientStop Offset="0.5" Color="White"/>
+                                <GradientStop Offset="0.3" Color="White"/>
+                                <GradientStop Offset="0.1" Color="White"/>
+                                <GradientStop Offset="0.0" Color="White"/>
+                            </s3D:GradientColorPalette.GradientStops>
+                        </s3D:GradientColorPalette>
+                    </s3D:SurfaceMeshRenderableSeries3D.MeshColorPalette>
+                </s3D:SurfaceMeshRenderableSeries3D>
+                <s3D:SurfaceMeshRenderableSeries3D x:Name="surfaceMeshRenderableSeries_2"
+                                        DrawMeshAs="SolidWireFrame"
+                                        Stroke="Red"
+                                        ContourStroke="Red"
+                                        StrokeThickness="2.0"
+                                        DrawSkirt="False"
+                                        Opacity="0.9">
+                    <s3D:SurfaceMeshRenderableSeries3D.MeshColorPalette>
+                        <s3D:GradientColorPalette>
+                            <s3D:GradientColorPalette.GradientStops>
+                                <GradientStop Offset="1" Color="White"/>
+                                <GradientStop Offset="0.9" Color="White"/>
+                                <GradientStop Offset="0.7" Color="White"/>
+                                <GradientStop Offset="0.5" Color="White"/>
+                                <GradientStop Offset="0.3" Color="White"/>
+                                <GradientStop Offset="0.1" Color="White"/>
+                                <GradientStop Offset="0.0" Color="White"/>
                             </s3D:GradientColorPalette.GradientStops>
                         </s3D:GradientColorPalette>
                     </s3D:SurfaceMeshRenderableSeries3D.MeshColorPalette>
                 </s3D:SurfaceMeshRenderableSeries3D>
                 <!--  To create a Scatter Chart, create a ScatterRenderableSeries3D and use a 3D point marker type  -->
-                    <s3D:ColumnRenderableSeries3D x:Name="Column1"
-                                              ColumnSpacingMode="FixedSize"
-                                              CoulmnFixedSize="3"
-                                              Fill="Green"
-                                      ColumnShape="{x:Type s3D:CylinderPointMarker3D}"
-                                      DataPointWidthX="1"
-                                      Opacity="1"/>
-                    <s3D:ColumnRenderableSeries3D x:Name="Column2"  
-                                              ColumnSpacingMode="FixedSize"
-                                              CoulmnFixedSize="3"
-                                              Fill="Brown"
-                                      ColumnShape="{x:Type s3D:CylinderPointMarker3D}"
-                                      DataPointWidthX="1"
-                                      Opacity="1"/>
-                    <s3D:ColumnRenderableSeries3D x:Name="Column3"  
-                                              ColumnSpacingMode="FixedSize"
-                                              CoulmnFixedSize="3"
-                                              Fill="Blue"
-                                      ColumnShape="{x:Type s3D:CylinderPointMarker3D}"
-                                      DataPointWidthX="1"
-                                      Opacity="1"/>
-                    <s3D:ColumnRenderableSeries3D x:Name="Column4"  
-                                              ColumnSpacingMode="FixedSize"
-                                              CoulmnFixedSize="3"
-                                              Fill="Blue"
-                                      ColumnShape="{x:Type s3D:CylinderPointMarker3D}"
-                                      DataPointWidthX="1"
-                                      Opacity="1"/>
-                    <s3D:ColumnRenderableSeries3D x:Name="Column5"  
-                                              ColumnSpacingMode="FixedSize"
-                                              CoulmnFixedSize="2"
-                                              Fill="Yellow"
-                                      ColumnShape="{x:Type s3D:CylinderPointMarker3D}"
-                                      DataPointWidthX="1"
-                                      Opacity="1"/>
-                    <s3D:ColumnRenderableSeries3D x:Name="Column6"  
-                                              ColumnSpacingMode="FixedSize"
-                                              CoulmnFixedSize="2"
-                                              Fill="Yellow"
-                                      ColumnShape="{x:Type s3D:CylinderPointMarker3D}"
-                                      DataPointWidthX="1"
-                                      Opacity="1"/>
-                    <s3D:PointLineRenderableSeries3D x:Name="PointLineSeries3D"
+                <s3D:PointLineRenderableSeries3D x:Name="PointLineSeries3D"
                                        IsAntialiased="True"
                                        IsLineStrips="False"
                                        Opacity="1"
@@ -133,7 +112,7 @@
                         <s3D:SpherePointMarker3D Opacity="1" Size="2" />
                     </s3D:PointLineRenderableSeries3D.PointMarker>
                 </s3D:PointLineRenderableSeries3D>
-                    <s3D:PointLineRenderableSeries3D x:Name="PointLineSeries3D_1"
+                <s3D:PointLineRenderableSeries3D x:Name="PointLineSeries3D_1"
                                        IsAntialiased="True"
                                        IsLineStrips="False"
                                        Opacity="1"
@@ -142,7 +121,7 @@
                         <s3D:SpherePointMarker3D Opacity="1" Size="2" Fill="Fuchsia"/>
                     </s3D:PointLineRenderableSeries3D.PointMarker>
                 </s3D:PointLineRenderableSeries3D>
-                    <s3D:PointLineRenderableSeries3D x:Name="PointLineSeries3D_2"
+                <s3D:PointLineRenderableSeries3D x:Name="PointLineSeries3D_2"
                                        IsAntialiased="True"
                                        IsLineStrips="False"
                                        Opacity="1"
@@ -151,7 +130,7 @@
                         <s3D:SpherePointMarker3D Opacity="1" Size="2" Fill="Blue"/>
                     </s3D:PointLineRenderableSeries3D.PointMarker>
                 </s3D:PointLineRenderableSeries3D>
-                    <s3D:PointLineRenderableSeries3D x:Name="PointLineSeries3D_3"
+                <s3D:PointLineRenderableSeries3D x:Name="PointLineSeries3D_3"
                                        IsAntialiased="True"
                                        IsLineStrips="False"
                                        Opacity="1"
@@ -160,12 +139,12 @@
                         <s3D:SpherePointMarker3D Opacity="1" Size="2" Fill="Green"/>
                     </s3D:PointLineRenderableSeries3D.PointMarker>
                 </s3D:PointLineRenderableSeries3D>
-                    <s3D:ScatterRenderableSeries3D x:Name="ScatterSeries3D_1">
+                <s3D:ScatterRenderableSeries3D x:Name="ScatterSeries3D_1">
                     <s3D:ScatterRenderableSeries3D.PointMarker>
                         <s3D:TrianglePointMarker3D Fill="Orange" Size="5" Opacity="1"/>
                     </s3D:ScatterRenderableSeries3D.PointMarker>
                 </s3D:ScatterRenderableSeries3D>
-                    <s3D:ScatterRenderableSeries3D x:Name="ScatterSeries3D_2">
+                <s3D:ScatterRenderableSeries3D x:Name="ScatterSeries3D_2">
                     <s3D:ScatterRenderableSeries3D.PointMarker>
                         <s3D:SpherePointMarker3D Fill="Red" Size="5" Opacity="1"/>
                     </s3D:ScatterRenderableSeries3D.PointMarker>
@@ -303,15 +282,15 @@
         <Label x:Name="label10_Copy" Content="p1 &gt;&gt; p2" Grid.Column="1" HorizontalAlignment="Left" Margin="737,640,0,0" VerticalAlignment="Top" Height="26" Width="60"/>
         <Label x:Name="label11_Copy" Content="Y(пор.)" Grid.Column="1" HorizontalAlignment="Left" Margin="737,827,0,0" VerticalAlignment="Top" Height="26" Width="47"/>
         <Label x:Name="label12_Copy" Content="f(y/S)" Grid.Column="1" HorizontalAlignment="Left" Margin="733,451,0,0" VerticalAlignment="Top" FontSize="14" Height="29" Width="42"/>
-        <Label x:Name="label13" Content="Критерий Зигерта-Котельникова" Grid.Column="1" HorizontalAlignment="Left" Margin="333,491,0,0" VerticalAlignment="Top" Height="26" Width="192"/>
-        <Label x:Name="label26" Content="X" Grid.Column="1" HorizontalAlignment="Left" Margin="339,517,0,0" VerticalAlignment="Top" Height="26" Width="16"/>
-        <Label x:Name="label27" Content="Y" Grid.Column="1" HorizontalAlignment="Left" Margin="339,543,0,0" VerticalAlignment="Top" Height="26" Width="16"/>
-        <TextBox x:Name="textBox18" Grid.Column="1" HorizontalAlignment="Left" Margin="365,521,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
-        <TextBox x:Name="textBox20" Grid.Column="1" HorizontalAlignment="Left" Margin="365,548,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
-        <Button x:Name="button5" Content="Проверить X" Grid.Column="1" HorizontalAlignment="Left" Margin="609,521,0,0" VerticalAlignment="Top" Click="button5_Click" Height="20" Width="94"/>
-        <Button x:Name="button6" Content="Проверить Y" Grid.Column="1" HorizontalAlignment="Left" Margin="609,549,0,0" VerticalAlignment="Top" Click="button6_Click" Height="20" Width="94"/>
-        <Label x:Name="label28" Content="принадлежит" Grid.Column="1" HorizontalAlignment="Left" Margin="487,517,0,0" VerticalAlignment="Top" Height="26" Width="84"/>
-        <Label x:Name="label29" Content="принадлежит" Grid.Column="1" HorizontalAlignment="Left" Margin="487,543,0,0" VerticalAlignment="Top" Height="26" Width="84"/>
+        <Label x:Name="label13" Content="Критерий Зигерта-Котельникова" Grid.Column="1" HorizontalAlignment="Left" Margin="322,433,0,0" VerticalAlignment="Top" Height="26" Width="192"/>
+        <Label x:Name="label26" Content="X" Grid.Column="1" HorizontalAlignment="Left" Margin="328,459,0,0" VerticalAlignment="Top" Height="26" Width="16"/>
+        <Label x:Name="label27" Content="Y" Grid.Column="1" HorizontalAlignment="Left" Margin="328,485,0,0" VerticalAlignment="Top" Height="26" Width="16"/>
+        <TextBox x:Name="textBox18" Grid.Column="1" HorizontalAlignment="Left" Margin="354,463,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
+        <TextBox x:Name="textBox20" Grid.Column="1" HorizontalAlignment="Left" Margin="354,490,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
+        <Button x:Name="button5" Content="Проверить X" Grid.Column="1" HorizontalAlignment="Left" Margin="598,463,0,0" VerticalAlignment="Top" Click="button5_Click" Height="20" Width="94"/>
+        <Button x:Name="button6" Content="Проверить Y" Grid.Column="1" HorizontalAlignment="Left" Margin="598,491,0,0" VerticalAlignment="Top" Click="button6_Click" Height="20" Width="94"/>
+        <Label x:Name="label28" Content="принадлежит" Grid.Column="1" HorizontalAlignment="Left" Margin="476,459,0,0" VerticalAlignment="Top" Height="26" Width="84"/>
+        <Label x:Name="label29" Content="принадлежит" Grid.Column="1" HorizontalAlignment="Left" Margin="476,485,0,0" VerticalAlignment="Top" Height="26" Width="84"/>
         <Menu x:Name="menu" HorizontalAlignment="Left" Height="20" Margin="0,0,0,0" VerticalAlignment="Top" Width="1912" Grid.ColumnSpan="3">
             <Button Content="Указания к лабораторной работе" Click="Button_Click_1" />
             <Button Content="Сведения о программе" Click="Button_Click_2"/>
@@ -322,8 +301,12 @@
         <TextBox x:Name="textBox11" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="802,426,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
         <TextBox x:Name="textBox17" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="802,766,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
         <TextBox x:Name="textBox21" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="802,830,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
-        <TextBox x:Name="textBox22" Grid.Column="1" HorizontalAlignment="Left" Height="18" Margin="571,521,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="31" IsEnabled="False"/>
-        <TextBox x:Name="textBox23" Grid.Column="1" HorizontalAlignment="Left" Height="18" Margin="571,548,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="31" IsEnabled="False"/>
+        <TextBox x:Name="textBox22" Grid.Column="1" HorizontalAlignment="Left" Height="18" Margin="560,463,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="31" IsEnabled="False"/>
+        <TextBox x:Name="textBox23" Grid.Column="1" HorizontalAlignment="Left" Height="18" Margin="560,490,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="31" IsEnabled="False"/>
+        <DataGrid x:Name="pointGrid" ItemsSource="{Binding}" AlternatingRowBackground="LightBlue" AlternationCount="2" Margin="279,0,0,237" Grid.Column="1" Height="200" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="424" />
+        <DataGrid x:Name="pointGrid_Copy" ItemsSource="{Binding}" AlternatingRowBackground="LightBlue" AlternationCount="2" Margin="279,0,0,10" Grid.Column="1" Height="200" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="424" />
+        <Label x:Name="label15" Content="f(x,y/S1)" Grid.Column="1" Margin="279,0,0,436" Height="26" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="52"/>
+        <Label x:Name="label14" Content="f(x,y/S2)" Grid.Column="1" Margin="278,0,721,210" Height="26" VerticalAlignment="Bottom"/>
 
 
     </Grid>
