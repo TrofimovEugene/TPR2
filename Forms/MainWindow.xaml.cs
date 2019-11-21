@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Threading;
 using SciChart.Charting3D;
 using SciChart.Charting3D.Axis;
 using SciChart.Charting3D.Model;
@@ -34,22 +31,9 @@ namespace TPR2
 		int n_2 = 0;
 		Instructions instructions;
 		InformationAboutProgram informationAboutProgram;
+		_3DGraph Graph;
 		public MainWindow()
 		{
-			var sciChart3DSurface = new SciChart3DSurface()
-			{
-				IsAxisCubeVisible = true,
-				IsFpsCounterVisible = true,
-				IsXyzGizmoVisible = true
-			};
-			// Create the X,Y,Z Axis
-			sciChart3DSurface.XAxis = new NumericAxis3D();
-			sciChart3DSurface.YAxis = new NumericAxis3D();
-			sciChart3DSurface.ZAxis = new NumericAxis3D();
-			// Specify Interactivity Modifiers
-			sciChart3DSurface.ChartModifier = new ModifierGroup3D(
-					 new OrbitModifier3D(),
-					 new ZoomExtentsModifier3D());
 			InitializeComponent();
 			instructions = new Instructions();
 			instructions.Show();
@@ -63,16 +47,10 @@ namespace TPR2
 		{
 			XyzDataSeries3D<double> xyzDataSeries3D_1 = new XyzDataSeries3D<double>();
 			XyzDataSeries3D<double> xyzDataSeries3D_2 = new XyzDataSeries3D<double>();
-			XyzDataSeries3D<double> xyzDataSeries3D_3 = new XyzDataSeries3D<double>();
-			XyzDataSeries3D<double> xyzDataSeries3D_4 = new XyzDataSeries3D<double>();
-			XyzDataSeries3D<double> xyzDataSeries3D_5 = new XyzDataSeries3D<double>();
-			XyzDataSeries3D<double> xyzDataSeries3D_6 = new XyzDataSeries3D<double>();
-			XyzDataSeries3D<double> xyzDataSeries3D_7 = new XyzDataSeries3D<double>();
-			XyzDataSeries3D<double> xyzDataSeries3D_8 = new XyzDataSeries3D<double>();
-			XyzDataSeries3D<double> xyzDataSeries3D_9;
-			XyzDataSeries3D<double> xyzDataSeries3D_10;
-			XyzDataSeries3D<double> xyzDataSeries3D_11;
-			XyzDataSeries3D<double> xyzDataSeries3D_12;
+			XyzDataSeries3D<double> xyzDataSeries3D_3;
+			XyzDataSeries3D<double> xyzDataSeries3D_4;
+			XyzDataSeries3D<double> xyzDataSeries3D_5;
+			XyzDataSeries3D<double> xyzDataSeries3D_6;
 			n_1 = 0;
 			n_2 = 0;
 			double mu_1_x = 0.0;
@@ -138,36 +116,10 @@ namespace TPR2
 			}
 			xyzDataSeries3D_1.SeriesName = "S1";
 			xyzDataSeries3D_2.SeriesName = "S2";
-			ScatterSeries3D_1.DataSeries = xyzDataSeries3D_1;
-			ScatterSeries3D_2.DataSeries = xyzDataSeries3D_2;
 			
 			double ro_1 = Math_TPR.CalculationOfCorrelationCoefficient(set_p_1, mu_1_x, mu_1_y, sigma_1_x, sigma_1_x);
-			for (int i = 0; i < n_1; i++)
-			{
-				int x = i;
-				int z = i;
-				double xVal = set_p_1[i].x;
-				double zVal = set_p_1[i].y;
-				set_p_1[i].z = Math_TPR.func_Gauss_XY(xVal, zVal, sigma_1_x, sigma_1_y, mu_1_x, mu_1_y, ro_1);
-				// построение распределения
-				xyzDataSeries3D_3.Append(xVal, set_p_1[i].z, zVal);
-				// построение проекции на оси x и y
-				xyzDataSeries3D_4.Append(xVal, set_p_1[i].z, 0);
-				xyzDataSeries3D_5.Append(0, set_p_1[i].z, zVal);
-			}
 			pointGrid.DataContext = set_p_1;
 			double ro_2 = Math_TPR.CalculationOfCorrelationCoefficient(set_p_2, mu_2_x, mu_2_y, sigma_2_x, sigma_2_x);
-			for (int i = 0; i < n_2; i++)
-			{
-				double xVal = set_p_2[i].x;
-				double zVal = set_p_2[i].y;
-				set_p_2[i].z = Math_TPR.func_Gauss_XY(xVal, zVal, sigma_2_x, sigma_2_y, mu_2_x, mu_2_y, ro_2);
-				// построение распределения
-				xyzDataSeries3D_6.Append(xVal, set_p_2[i].z, zVal);
-				// построение проекции на оси x и y
-				xyzDataSeries3D_7.Append(xVal, set_p_2[i].z, 0);
-				xyzDataSeries3D_8.Append(0, set_p_2[i].z, zVal);
-			}
 			pointGrid_Copy.DataContext = set_p_2;
 			// построение плотностей проекций множеств S1 и S2
 			// данные полученные из практически заданных СВ величин
@@ -182,92 +134,58 @@ namespace TPR2
 			// построение плотности проекции f(x/S1)
 			dispersion_x1 = Math_TPR.DispersionX(set_p_1, average_x1);
 			sigma_x1 = Math.Sqrt(dispersion_x1);
-			xyzDataSeries3D_9 = Math_TPR.f_x_Si(average_x1, sigma_x1, n_1, f_x_S1);
-			xyzDataSeries3D_9.SeriesName = "f(x/S1)";
-			PointLineSeries3D.DataSeries = xyzDataSeries3D_9;
+			xyzDataSeries3D_3 = Math_TPR.f_x_Si(average_x1, sigma_x1, n_1, f_x_S1);
+			xyzDataSeries3D_3.SeriesName = "f(x/S1)";
 			// построение плотности проекции f(x/S2)
 			dispersion_x2 = Math_TPR.DispersionX(set_p_2, average_x2);
 			sigma_x2 = Math.Sqrt(dispersion_x2);
-			xyzDataSeries3D_10 = Math_TPR.f_x_Si(average_x2, sigma_x2, n_2, f_x_S2);
-			xyzDataSeries3D_10.SeriesName = "f(x/S2)";
-			PointLineSeries3D_1.DataSeries = xyzDataSeries3D_10;
+			xyzDataSeries3D_4 = Math_TPR.f_x_Si(average_x2, sigma_x2, n_2, f_x_S2);
+			xyzDataSeries3D_4.SeriesName = "f(x/S2)";
 			// построение плотности проекции f(y/S1)
 			dispersion_y1 = Math_TPR.DispersionY(set_p_1, average_y1);
 			sigma_y1 = Math.Sqrt(dispersion_y1);
-			xyzDataSeries3D_11 = Math_TPR.f_y_Si(average_y1, sigma_y1, n_1, f_y_S1);
-			xyzDataSeries3D_11.SeriesName = "f(y/S1)";
-			PointLineSeries3D_2.DataSeries = xyzDataSeries3D_11;
+			xyzDataSeries3D_5 = Math_TPR.f_y_Si(average_y1, sigma_y1, n_1, f_y_S1);
+			xyzDataSeries3D_5.SeriesName = "f(y/S1)";
 			// построение плотности проекции f(y/S2)
 			dispersion_y2 = Math_TPR.DispersionY(set_p_2, average_y2);
 			sigma_y2 = Math.Sqrt(dispersion_y2);
-			xyzDataSeries3D_12 = Math_TPR.f_y_Si(average_y2, sigma_y2, n_2, f_y_S2);
-			xyzDataSeries3D_12.SeriesName = "f(y/S2)";
-			PointLineSeries3D_3.DataSeries = xyzDataSeries3D_12;
-			
-			int xSize = 100;
-			int zSize = 100;
+			xyzDataSeries3D_6 = Math_TPR.f_y_Si(average_y2, sigma_y2, n_2, f_y_S2);
+			xyzDataSeries3D_6.SeriesName = "f(y/S2)";
 
 			x_cen = Math.Abs(mu_1_x - mu_2_x) / 2;
 			y_cen = Math.Abs(mu_1_y - mu_2_y) / 2;
 
-			double distance_1 = Math.Sqrt(Math.Pow(x_cen-mu_1_x, 2) + Math.Pow(y_cen-mu_1_y, 2));
-			if (sigma_1_x > distance_1)
+			double distance = Math.Sqrt(Math.Pow(x_cen-mu_1_x, 2) + Math.Pow(y_cen-mu_1_y, 2));
+			if (sigma_1_x > distance)
 			{
-				distance_1 = sigma_1_x;
+				distance = sigma_1_x;
 			}
-			if (sigma_1_y > distance_1)
+			if (sigma_1_y > distance)
 			{
-				distance_1 = sigma_1_y;
+				distance = sigma_1_y;
 			}
-			if (sigma_2_x > distance_1)
+			if (sigma_2_x > distance)
 			{
-				distance_1 = sigma_2_x;
+				distance = sigma_2_x;
 			}
-			if (sigma_2_y > distance_1)
+			if (sigma_2_y > distance)
 			{
-				distance_1 = sigma_2_y;
+				distance = sigma_2_y;
 			}
 
-			var meshDataSeries = new UniformGridDataSeries3D<double>(xSize, zSize)
-			{
-				StartX = x_cen - distance_1*2,
-				StepX = (4 * distance_1) / 100,
-				StartZ = y_cen - distance_1*2,
-				StepZ = (4 * distance_1) / 100,
-				SeriesName = "f(x,y/S1)",
-			};
-			string text = "";
-			for (int x = 0; x < xSize; x++)
-			{
-				for (int z = 0; z < zSize; z++)
-				{
-					double xVal = x / (double)xSize  * (4 * distance_1) - Math.Abs(x_cen - distance_1 * 2);
-					double zVal = z / (double)zSize  * (4 * distance_1) - Math.Abs(y_cen - distance_1 * 2);
-					double y = Math_TPR.func_Gauss_XY(xVal, zVal, sigma_1_x, sigma_1_y, mu_1_x, mu_1_y, ro_1);
-					meshDataSeries[z, x] = y;
-				}
-			}
-			surfaceMeshRenderableSeries.DataSeries = meshDataSeries;
+			var meshDataSeries_1 = Math_TPR.ConstructionSurfaceDistribution(x_cen, y_cen, distance, sigma_1_x, sigma_1_y, mu_1_x, mu_1_y, ro_1);
+			meshDataSeries_1.SeriesName = "f(x,y/S1)";
 
-			var meshDataSeries_2 = new UniformGridDataSeries3D<double>(xSize, zSize)
+			var meshDataSeries_2 = Math_TPR.ConstructionSurfaceDistribution(x_cen, y_cen, distance, sigma_2_x, sigma_2_y, mu_2_x, mu_2_y, ro_2);
+			meshDataSeries_2.SeriesName = "f(x,y/S2)";
+
+			if (Graph != null)
 			{
-				StartX = x_cen - distance_1 * 2,
-				StepX = (4 * distance_1) / 100,
-				StartZ = y_cen - distance_1 * 2,
-				StepZ = (4 * distance_1) / 100,
-				SeriesName = "f(x,y/S2)",
-			};
-			for (int x = 0; x < xSize; x++)
-			{
-				for (int z = 0; z < zSize; z++)
-				{
-					double xVal = x / (double)xSize * (4 * distance_1) - Math.Abs(x_cen - distance_1 * 2);
-					double zVal = z / (double)zSize * (4 * distance_1) - Math.Abs(y_cen - distance_1 * 2);
-					double y = Math_TPR.func_Gauss_XY(xVal, zVal, sigma_2_x, sigma_2_y, mu_2_x, mu_2_y, ro_2);
-					meshDataSeries_2[z, x] = y;
-				}
+				Graph.Close();
 			}
-			surfaceMeshRenderableSeries_2.DataSeries = meshDataSeries_2;
+			Graph = new _3DGraph(xyzDataSeries3D_1, xyzDataSeries3D_2, xyzDataSeries3D_3, xyzDataSeries3D_4,
+								 xyzDataSeries3D_5, xyzDataSeries3D_6, meshDataSeries_1, meshDataSeries_2);
+			Graph.Show();
 		} 
 		/*Определение порогового значения x по условию минимума среднего риска*/
 		private void button1_Click(object sender, RoutedEventArgs e)

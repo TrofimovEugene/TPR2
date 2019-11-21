@@ -264,5 +264,28 @@ namespace TPR2.Classes
 			}
 			return xyzDataSeries3D;
 		}
+		/* Функция построения поверхности f(x,y/Si) */
+		public static UniformGridDataSeries3D<double> ConstructionSurfaceDistribution(double x_cen, double y_cen, double distance,
+						double sigma_x, double sigma_y, double mu_x, double mu_y, double ro)
+		{
+			var uniformGridDataSeries3D = new UniformGridDataSeries3D<double>(100, 100)
+			{
+				StartX = x_cen - distance * 2,
+				StepX = (4 * distance) / 100,
+				StartZ = y_cen - distance * 2,
+				StepZ = (4 * distance) / 100,
+			};
+			for (int x = 0; x < 100; x++)
+			{
+				for (int z = 0; z < 100; z++)
+				{
+					double xVal = x / (double)100 * (4 * distance) - Math.Abs(x_cen - distance * 2);
+					double zVal = z / (double)100 * (4 * distance) - Math.Abs(y_cen - distance * 2);
+					double y = Math_TPR.func_Gauss_XY(xVal, zVal, sigma_x, sigma_y, mu_x, mu_y, ro);
+					uniformGridDataSeries3D[z, x] = y;
+				}
+			}
+			return uniformGridDataSeries3D;
+		}
 	}
 }
