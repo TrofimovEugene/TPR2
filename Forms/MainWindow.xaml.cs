@@ -31,17 +31,11 @@ namespace TPR2
 		int n_2 = 0;
 		Instructions instructions;
 		InformationAboutProgram informationAboutProgram;
+		UserManual userManual;
 		_3DGraph Graph;
 		public MainWindow()
 		{
 			InitializeComponent();
-			instructions = new Instructions();
-			instructions.Show();
-			instructions.Activate();
-			informationAboutProgram = new InformationAboutProgram();
-			informationAboutProgram.Show();
-			informationAboutProgram.Activate();
-
 		}
 		private void button_Click(object sender, RoutedEventArgs e)
 		{
@@ -151,11 +145,14 @@ namespace TPR2
 			sigma_y2 = Math.Sqrt(dispersion_y2);
 			xyzDataSeries3D_6 = Math_TPR.f_y_Si(average_y2, sigma_y2, n_2, f_y_S2);
 			xyzDataSeries3D_6.SeriesName = "f(y/S2)";
-
+			// нахождение центра между образами
 			x_cen = Math.Abs(mu_1_x - mu_2_x) / 2;
 			y_cen = Math.Abs(mu_1_y - mu_2_y) / 2;
-
+			/* Вычисление расстояния до центра от одного из образов, т.к. это центр – следовательно
+			 расстояние от первого и второго образа одинаково. Берем данные первого образа.*/
 			double distance = Math.Sqrt(Math.Pow(x_cen-mu_1_x, 2) + Math.Pow(y_cen-mu_1_y, 2));
+			// определяем, что это расстояние больше чем среднеквадратическое отклонение любого образа
+			// если меньше, то берем значение большего среднеквадратического отклонения
 			if (sigma_1_x > distance)
 			{
 				distance = sigma_1_x;
@@ -172,13 +169,15 @@ namespace TPR2
 			{
 				distance = sigma_2_y;
 			}
-
+			// данное значение нам необходимо для построения поверхности определённого размера
+			// чтобы её отображение на диаграмме было корректным и без смещения относительно других объектов
+			// данное значение было определено эмпирическим путем
 			var meshDataSeries_1 = Math_TPR.ConstructionSurfaceDistribution(x_cen, y_cen, distance, sigma_1_x, sigma_1_y, mu_1_x, mu_1_y, ro_1);
 			meshDataSeries_1.SeriesName = "f(x,y/S1)";
 
 			var meshDataSeries_2 = Math_TPR.ConstructionSurfaceDistribution(x_cen, y_cen, distance, sigma_2_x, sigma_2_y, mu_2_x, mu_2_y, ro_2);
 			meshDataSeries_2.SeriesName = "f(x,y/S2)";
-
+			// создание формы с графиком
 			if (Graph != null)
 			{
 				Graph.Close();
@@ -347,16 +346,32 @@ namespace TPR2
 		}
 		private void Button_Click_1(object sender, RoutedEventArgs e)
 		{
-			instructions.Close();
+			if (instructions != null)
+			{
+				instructions.Close();
+			}
 			instructions = new Instructions();
 			instructions.Show();
 		}
 
 		private void Button_Click_2(object sender, RoutedEventArgs e)
 		{
-			informationAboutProgram.Close();
+			if (informationAboutProgram != null)
+			{
+				informationAboutProgram.Close();
+			}
 			informationAboutProgram = new InformationAboutProgram();
 			informationAboutProgram.Show();
+		}
+
+		private void Button_Click_3(object sender, RoutedEventArgs e)
+		{
+			if (userManual != null)
+			{
+				userManual.Close();
+			}
+			userManual = new UserManual();
+			userManual.Show();
 		}
 	}
 }
