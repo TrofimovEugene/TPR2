@@ -75,7 +75,7 @@ namespace TPR2.Classes
 			}
 		}
 		public static double DetermThresholdValuesMinNumberOfErroneousDecisions(List<Point> f_s1, List<Point> f_s2, double p_1, double p_2, bool x_or_y,
-			double sigma_1, double sigma_2, double mu_1, double mu_2)
+			double sigma_1, double sigma_2, double mu_1, double mu_2, double eps)
 		{
 			double otnosh_f = 0.0;
 			double otnosh_C = 0.0;
@@ -101,7 +101,7 @@ namespace TPR2.Classes
 				{
 					otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].x, sigma_1, mu_1) / Math_TPR.func_der_Gauss(points[i].x, sigma_2, mu_2));
 					otnosh_C = p_2 / p_1;
-					if (Math.Abs(otnosh_f - otnosh_C) < 0.001)
+					if (Math.Abs(otnosh_f - otnosh_C) < eps)
 					{
 						por_value = points[i].x;
 						break;
@@ -126,7 +126,7 @@ namespace TPR2.Classes
 				{
 					otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].y, sigma_1, mu_1) / Math_TPR.func_der_Gauss(points[i].y, sigma_2, mu_2));
 					otnosh_C = p_2 / p_1;
-					if (Math.Abs(otnosh_f - otnosh_C) < 0.001)
+					if (Math.Abs(otnosh_f - otnosh_C) < eps)
 					{
 						por_value = points[i].y;
 						break;
@@ -158,7 +158,7 @@ namespace TPR2.Classes
 		}
 
 		public static string DeterminationOfTheSiegert_Kotelnikov(List<Point> f_S1, List<Point> f_S2, double x, double p_1, double p_2,
-			double sigma_1, double sigma_2, double mu_1, double mu_2, bool x_or_y)
+			double sigma_1, double sigma_2, double mu_1, double mu_2, bool x_or_y, double eps)
 		{
 			string result = "";
 			double otnosh_f = 0.0;
@@ -182,7 +182,7 @@ namespace TPR2.Classes
 				}
 				for (int i = 0; i < points.Count; i++)
 				{
-					if (Math.Abs(x - points[i].x) < 0.01)
+					if (Math.Abs(x - points[i].x) < eps)
 					{
 						// f`(x/S1)/f`(x/S2)
 						otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].x, sigma_1, mu_1) / Math_TPR.func_der_Gauss(points[i].x, sigma_2, mu_2));
@@ -216,7 +216,7 @@ namespace TPR2.Classes
 				}
 				for (int i = 0; i < points.Count; i++)
 				{
-					if (Math.Abs(x - points[i].y) < 0.01)
+					if (Math.Abs(x - points[i].y) < eps)
 					{
 						// f`(y/S1)/f`(y/S2)
 						otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].y, sigma_1, mu_1) / Math_TPR.func_der_Gauss(points[i].y, sigma_2, mu_2));

@@ -7,75 +7,75 @@
         xmlns:s3D="http://schemas.abtsoftware.co.uk/scichart3D"
         mc:Ignorable="d"
         Title="Теория принятия решений. Лабораторная работа №2." Height="1000" Width="1225" MinHeight="1000" MinWidth="1225">
-    
+
     <Grid RenderTransformOrigin="0.5,0.5" MinHeight="950" MinWidth="1200" MaxHeight="950" MaxWidth="1200">
         <Button x:Name="button" Content="Построить график" Margin="919,53,84,851" Click="button_Click" RenderTransformOrigin="1.716,15.483" FontSize="16"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="306,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="25"/>
-        <TextBox x:Name="textBox1" Margin="737,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Text="25" HorizontalAlignment="Left" Width="111"/>
-        <TextBox x:Name="textBox2" HorizontalAlignment="Left" Margin="306,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="1.5"/>
-        <TextBox x:Name="textBox3" HorizontalAlignment="Left" Margin="306,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="3.5"/>
-        <TextBox x:Name="textBox4" Margin="737,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Text="3.0" HorizontalAlignment="Left" Width="111"/>
-        <TextBox x:Name="textBox5" Margin="737,97,0,0" TextWrapping="Wrap" Text="1.0" HorizontalAlignment="Left" Width="111" Height="18" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox6" HorizontalAlignment="Left" Margin="306,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="0.745"/>
-        <TextBox x:Name="textBox7" HorizontalAlignment="Left" Margin="306,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="0.685"/>
-        <Label x:Name="label" Content="Количество точёк первого множества" HorizontalAlignment="Left" Margin="80,31,0,0" VerticalAlignment="Top" Height="26" Width="221"/>
-        <Label x:Name="label1" Content="Количество точек второго множества" HorizontalAlignment="Left" Margin="511,32,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.29,-0.345" Height="26" Width="220"/>
-        <Label x:Name="label2" Content="Мат. ожидание для первого множества X" HorizontalAlignment="Left" Margin="62,61,0,0" VerticalAlignment="Top" Height="26" Width="238"/>
-        <Label x:Name="label3" Content="Мат. ожидание для первого множества Y" HorizontalAlignment="Left" Margin="62,92,0,0" VerticalAlignment="Top" Height="26" Width="238"/>
-        <Label x:Name="label4" Content="Мат. ожидание для второго множества X" HorizontalAlignment="Left" Margin="494,61,0,0" VerticalAlignment="Top" Height="26" Width="237"/>
-        <Label x:Name="label5" Content="Мат. ожидание для второго множества Y" HorizontalAlignment="Left" Margin="493,87,0,0" VerticalAlignment="Top" Height="26" Width="237"/>
-        <TextBox x:Name="textBox8" Margin="737,129,352,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Text="0.674"/>
-        <TextBox x:Name="textBox9" Margin="737,171,352,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Text="0.783"/>
-        <Label x:Name="label6" Content="Среднее квадратическое отклонение для первого" HorizontalAlignment="Left" Margin="12,112,0,0" VerticalAlignment="Top" Height="26" Width="287"/>
-        <Label x:Name="label6_Copy" Content="множества X(ЗНАЧЕНИЕ СТРОГО БОЛЬШЕ НУЛЯ!!!)" HorizontalAlignment="Left" Margin="12,132,0,0" VerticalAlignment="Top" Height="26" Width="292"/>
-        <Label x:Name="label7" Content="Среднее квадратическое отклонение для первого" HorizontalAlignment="Left" Margin="12,150,0,0" VerticalAlignment="Top" Height="26" Width="287"/>
-        <Label x:Name="label7_Copy" Content="множества Y(ЗНАЧЕНИЕ СТРОГО БОЛЬШЕ НУЛЯ!!!)" HorizontalAlignment="Left" Margin="12,171,0,0" VerticalAlignment="Top" Height="26" Width="291"/>
-        <Label x:Name="label8" Content="Среднее квадратическое отклонение для второго" HorizontalAlignment="Left" Margin="443,110,0,0" VerticalAlignment="Top" Height="26" Width="285"/>
-        <Label x:Name="label8_Copy" Content="множества X(ЗНАЧЕНИЕ СТРОГО БОЛЬШЕ НУЛЯ!!!)" HorizontalAlignment="Left" Margin="443,130,0,0" VerticalAlignment="Top" Height="26" Width="292"/>
-        <Label x:Name="label9" Content="Среднее квадратическое отклонение для второго" HorizontalAlignment="Left" Margin="443,151,0,0" VerticalAlignment="Top" Height="26" Width="285"/>
-        <Label x:Name="label9_Copy" Content="множества Y(ЗНАЧЕНИЕ СТРОГО БОЛЬШЕ НУЛЯ!!!)" HorizontalAlignment="Left" Margin="443,171,0,0" VerticalAlignment="Top" Height="26" Width="291"/>
-        <Button x:Name="button1" Content="Рассчитать пороговое значение из min среднего риска" HorizontalAlignment="Left" Margin="12,483,0,0" VerticalAlignment="Top" Click="button1_Click" Height="20" Width="309"/>
-        <Label x:Name="label16" Content="C11" HorizontalAlignment="Left" Margin="16,258,0,0" VerticalAlignment="Top" Height="26" Width="30"/>
-        <TextBox x:Name="textBox12" HorizontalAlignment="Left" Margin="76,261,0,0" Text="-1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" Height="18"/>
-        <Label x:Name="label17" Content="C22" HorizontalAlignment="Left" Margin="16,281,0,0" VerticalAlignment="Top" Height="26" Width="30"/>
-        <TextBox x:Name="textBox13" HorizontalAlignment="Left" Margin="76,284,0,0" Text="-1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" Height="18"/>
-        <Label x:Name="label18" Content="C12>0" HorizontalAlignment="Left" Margin="16,326,0,0" VerticalAlignment="Top" Height="26" Width="45"/>
-        <TextBox x:Name="textBox14" HorizontalAlignment="Left" Margin="76,329,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="120"/>
-        <Label x:Name="label19" Content="C21>0" HorizontalAlignment="Left" Margin="16,349,0,0" VerticalAlignment="Top" Height="26" Width="45"/>
-        <TextBox x:Name="textBox15" HorizontalAlignment="Left" Margin="76,352,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="100"/>
-        <Label x:Name="label20" Content="C12(пропуск цели) >> С21(ложная тревога)" HorizontalAlignment="Left" Margin="16,303,0,0" VerticalAlignment="Top" Height="26" Width="251"/>
-        <Label x:Name="label21" Content="p1" HorizontalAlignment="Left" Margin="16,426,0,0" VerticalAlignment="Top" Height="26" Width="24"/>
-        <Label x:Name="label25" Content="p2" HorizontalAlignment="Left" Margin="16,446,0,0" VerticalAlignment="Top" Height="26" Width="24"/>
-        <TextBox x:Name="textBox16" HorizontalAlignment="Left" Margin="76,429,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="0.95"/>
-        <TextBox x:Name="textBox19" HorizontalAlignment="Left" Margin="76,452,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="0.05"/>
-        <Label x:Name="label22" Content="Априорное значения задаваемое пользователем" HorizontalAlignment="Left" Margin="16,380,0,0" VerticalAlignment="Top" Height="26" Width="282"/>
-        <Label x:Name="label23" Content="Цены рисков" HorizontalAlignment="Left" Margin="18,232,0,0" VerticalAlignment="Top" Height="26" Width="83"/>
-        <Label x:Name="label24" Content="X(пор.)" HorizontalAlignment="Left" Margin="18,521,0,0" VerticalAlignment="Top" Height="26" Width="48"/>
-        <Button x:Name="button2" Content="Рассчитать пороговое значение из min числа ош. решений" HorizontalAlignment="Left" Margin="12,557,0,0" VerticalAlignment="Top" Click="button2_Click" Height="20" Width="331"/>
-        <Label x:Name="label10" Content="p1 &gt;&gt; p2" HorizontalAlignment="Left" Margin="16,400,0,0" VerticalAlignment="Top" Height="26" Width="60"/>
-        <Label x:Name="label11" Content="X(пор.)" HorizontalAlignment="Left" Margin="20,585,0,0" VerticalAlignment="Top" Height="26" Width="48"/>
-        <Label x:Name="label12" Content="f(x/S)" HorizontalAlignment="Left" Margin="12,209,0,0" VerticalAlignment="Top" FontSize="14" Height="29" Width="42"/>
-        <Button x:Name="button3" Content="Рассчитать пороговое значение из min среднего риска" HorizontalAlignment="Left" Margin="859,480,0,0" VerticalAlignment="Top" Click="button3_Click" Height="20" Width="309"/>
-        <Label x:Name="label16_Copy" Content="C11" HorizontalAlignment="Left" Margin="859,253,0,0" VerticalAlignment="Top" Height="26" Width="30"/>
-        <TextBox x:Name="textBox12_Copy" HorizontalAlignment="Left" Margin="919,256,0,0" Text="-1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" Height="18"/>
-        <Label x:Name="label17_Copy" Content="C22" HorizontalAlignment="Left" Margin="859,276,0,0" VerticalAlignment="Top" Height="26" Width="30"/>
-        <TextBox x:Name="textBox13_Copy" HorizontalAlignment="Left" Margin="919,279,0,0" Text="-1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" Height="18"/>
-        <Label x:Name="label18_Copy" Content="C12&gt;0" HorizontalAlignment="Left" Margin="859,321,0,0" VerticalAlignment="Top" Height="26" Width="45"/>
-        <TextBox x:Name="textBox14_Copy" HorizontalAlignment="Left" Margin="919,324,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="120"/>
-        <Label x:Name="label19_Copy" Content="C21&gt;0" HorizontalAlignment="Left" Margin="859,344,0,0" VerticalAlignment="Top" Height="26" Width="45"/>
-        <TextBox x:Name="textBox15_Copy" HorizontalAlignment="Left" Margin="919,347,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="100"/>
-        <Label x:Name="label20_Copy" Content="C12(пропуск цели) &gt;&gt; С21(ложная тревога)" HorizontalAlignment="Left" Margin="859,298,0,0" VerticalAlignment="Top" Height="26" Width="251"/>
-        <Label x:Name="label21_Copy" Content="p1" HorizontalAlignment="Left" Margin="859,421,0,0" VerticalAlignment="Top" Height="26" Width="24"/>
-        <Label x:Name="label25_Copy" Content="p2" HorizontalAlignment="Left" Margin="859,441,0,0" VerticalAlignment="Top" Height="26" Width="24"/>
-        <TextBox x:Name="textBox16_Copy" HorizontalAlignment="Left" Margin="919,424,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="0.95"/>
-        <TextBox x:Name="textBox19_Copy" HorizontalAlignment="Left" Margin="919,447,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="0.05"/>
-        <Label x:Name="label22_Copy" Content="Априорное значения задаваемое пользователем" HorizontalAlignment="Left" Margin="859,375,0,0" VerticalAlignment="Top" Height="26" Width="282"/>
-        <Label x:Name="label23_Copy" Content="Цены рисков" HorizontalAlignment="Left" Margin="861,227,0,0" VerticalAlignment="Top" Height="26" Width="83"/>
-        <Label x:Name="label24_Copy" Content="Y(пор.)" HorizontalAlignment="Left" Margin="859,518,0,0" VerticalAlignment="Top" Height="26" Width="47"/>
-        <Button x:Name="button4" Content="Рассчитать пороговое значение из min числа ош. решений" HorizontalAlignment="Left" Margin="845,554,0,0" VerticalAlignment="Top" Click="button4_Click" Height="20" Width="331"/>
-        <Label x:Name="label10_Copy" Content="p1 &gt;&gt; p2" HorizontalAlignment="Left" Margin="859,395,0,0" VerticalAlignment="Top" Height="26" Width="60"/>
-        <Label x:Name="label11_Copy" Content="Y(пор.)" HorizontalAlignment="Left" Margin="861,585,0,0" VerticalAlignment="Top" Height="26" Width="47"/>
-        <Label x:Name="label12_Copy" Content="f(y/S)" HorizontalAlignment="Left" Margin="855,206,0,0" VerticalAlignment="Top" FontSize="14" Height="29" Width="42"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="306,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="25"/>
+        <TextBox x:Name="textBox1" Margin="737,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Text="25" HorizontalAlignment="Left" Width="111"/>
+        <TextBox x:Name="textBox2" HorizontalAlignment="Left" Margin="306,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="1.5"/>
+        <TextBox x:Name="textBox3" HorizontalAlignment="Left" Margin="306,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="3.5"/>
+        <TextBox x:Name="textBox4" Margin="737,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Text="3.0" HorizontalAlignment="Left" Width="111"/>
+        <TextBox x:Name="textBox5" Margin="737,100,0,0" TextWrapping="Wrap" Text="1.0" HorizontalAlignment="Left" Width="111" Height="18" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox6" HorizontalAlignment="Left" Margin="306,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="0.745"/>
+        <TextBox x:Name="textBox7" HorizontalAlignment="Left" Margin="306,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="0.685"/>
+        <Label x:Name="label" Content="Количество точёк первого множества" HorizontalAlignment="Left" Margin="80,34,0,0" VerticalAlignment="Top" Height="26" Width="221"/>
+        <Label x:Name="label1" Content="Количество точек второго множества" HorizontalAlignment="Left" Margin="511,35,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.29,-0.345" Height="26" Width="220"/>
+        <Label x:Name="label2" Content="Мат. ожидание для первого множества X" HorizontalAlignment="Left" Margin="62,64,0,0" VerticalAlignment="Top" Height="26" Width="238"/>
+        <Label x:Name="label3" Content="Мат. ожидание для первого множества Y" HorizontalAlignment="Left" Margin="62,95,0,0" VerticalAlignment="Top" Height="26" Width="238"/>
+        <Label x:Name="label4" Content="Мат. ожидание для второго множества X" HorizontalAlignment="Left" Margin="494,64,0,0" VerticalAlignment="Top" Height="26" Width="237"/>
+        <Label x:Name="label5" Content="Мат. ожидание для второго множества Y" HorizontalAlignment="Left" Margin="493,90,0,0" VerticalAlignment="Top" Height="26" Width="237"/>
+        <TextBox x:Name="textBox8" Margin="737,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Text="0.674" HorizontalAlignment="Left" Width="111"/>
+        <TextBox x:Name="textBox9" Margin="737,174,352,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Text="0.783"/>
+        <Label x:Name="label6" Content="Среднее квадратическое отклонение для первого" HorizontalAlignment="Left" Margin="12,115,0,0" VerticalAlignment="Top" Height="26" Width="287"/>
+        <Label x:Name="label6_Copy" Content="множества X(ЗНАЧЕНИЕ СТРОГО БОЛЬШЕ НУЛЯ!!!)" HorizontalAlignment="Left" Margin="12,135,0,0" VerticalAlignment="Top" Height="26" Width="292"/>
+        <Label x:Name="label7" Content="Среднее квадратическое отклонение для первого" HorizontalAlignment="Left" Margin="12,153,0,0" VerticalAlignment="Top" Height="26" Width="287"/>
+        <Label x:Name="label7_Copy" Content="множества Y(ЗНАЧЕНИЕ СТРОГО БОЛЬШЕ НУЛЯ!!!)" HorizontalAlignment="Left" Margin="12,174,0,0" VerticalAlignment="Top" Height="26" Width="291"/>
+        <Label x:Name="label8" Content="Среднее квадратическое отклонение для второго" HorizontalAlignment="Left" Margin="443,113,0,0" VerticalAlignment="Top" Height="26" Width="285"/>
+        <Label x:Name="label8_Copy" Content="множества X(ЗНАЧЕНИЕ СТРОГО БОЛЬШЕ НУЛЯ!!!)" HorizontalAlignment="Left" Margin="443,133,0,0" VerticalAlignment="Top" Height="26" Width="292"/>
+        <Label x:Name="label9" Content="Среднее квадратическое отклонение для второго" HorizontalAlignment="Left" Margin="443,154,0,0" VerticalAlignment="Top" Height="26" Width="285"/>
+        <Label x:Name="label9_Copy" Content="множества Y(ЗНАЧЕНИЕ СТРОГО БОЛЬШЕ НУЛЯ!!!)" HorizontalAlignment="Left" Margin="443,174,0,0" VerticalAlignment="Top" Height="26" Width="291"/>
+        <Button x:Name="button1" Content="Рассчитать пороговое значение из min среднего риска" HorizontalAlignment="Left" Margin="12,487,0,0" VerticalAlignment="Top" Click="button1_Click" Height="20" Width="309"/>
+        <Label x:Name="label16" Content="C11" HorizontalAlignment="Left" Margin="16,262,0,0" VerticalAlignment="Top" Height="26" Width="30"/>
+        <TextBox x:Name="textBox12" HorizontalAlignment="Left" Margin="76,265,0,0" Text="-1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" Height="18"/>
+        <Label x:Name="label17" Content="C22" HorizontalAlignment="Left" Margin="16,285,0,0" VerticalAlignment="Top" Height="26" Width="30"/>
+        <TextBox x:Name="textBox13" HorizontalAlignment="Left" Margin="76,288,0,0" Text="-1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" Height="18"/>
+        <Label x:Name="label18" Content="C12>0" HorizontalAlignment="Left" Margin="16,330,0,0" VerticalAlignment="Top" Height="26" Width="45"/>
+        <TextBox x:Name="textBox14" HorizontalAlignment="Left" Margin="76,333,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="120"/>
+        <Label x:Name="label19" Content="C21>0" HorizontalAlignment="Left" Margin="16,353,0,0" VerticalAlignment="Top" Height="26" Width="45"/>
+        <TextBox x:Name="textBox15" HorizontalAlignment="Left" Margin="76,356,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="100"/>
+        <Label x:Name="label20" Content="C12(пропуск цели) >> С21(ложная тревога)" HorizontalAlignment="Left" Margin="16,307,0,0" VerticalAlignment="Top" Height="26" Width="251"/>
+        <Label x:Name="label21" Content="p1" HorizontalAlignment="Left" Margin="16,430,0,0" VerticalAlignment="Top" Height="26" Width="24"/>
+        <Label x:Name="label25" Content="p2" HorizontalAlignment="Left" Margin="16,450,0,0" VerticalAlignment="Top" Height="26" Width="24"/>
+        <TextBox x:Name="textBox16" HorizontalAlignment="Left" Margin="76,433,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="0.95"/>
+        <TextBox x:Name="textBox19" HorizontalAlignment="Left" Margin="76,456,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="0.05"/>
+        <Label x:Name="label22" Content="Априорное значения задаваемое пользователем" HorizontalAlignment="Left" Margin="16,384,0,0" VerticalAlignment="Top" Height="26" Width="282"/>
+        <Label x:Name="label23" Content="Цены рисков" HorizontalAlignment="Left" Margin="18,236,0,0" VerticalAlignment="Top" Height="26" Width="83"/>
+        <Label x:Name="label24" Content="X(пор.)" HorizontalAlignment="Left" Margin="18,525,0,0" VerticalAlignment="Top" Height="26" Width="48"/>
+        <Button x:Name="button2" Content="Рассчитать пороговое значение из min числа ош. решений" HorizontalAlignment="Left" Margin="12,561,0,0" VerticalAlignment="Top" Click="button2_Click" Height="20" Width="331"/>
+        <Label x:Name="label10" Content="p1 &gt;&gt; p2" HorizontalAlignment="Left" Margin="16,404,0,0" VerticalAlignment="Top" Height="26" Width="60"/>
+        <Label x:Name="label11" Content="X(пор.)" HorizontalAlignment="Left" Margin="20,589,0,0" VerticalAlignment="Top" Height="26" Width="48"/>
+        <Label x:Name="label12" Content="f(x/S)" HorizontalAlignment="Left" Margin="12,213,0,0" VerticalAlignment="Top" FontSize="14" Height="29" Width="42"/>
+        <Button x:Name="button3" Content="Рассчитать пороговое значение из min среднего риска" HorizontalAlignment="Left" Margin="859,491,0,0" VerticalAlignment="Top" Click="button3_Click" Height="20" Width="309"/>
+        <Label x:Name="label16_Copy" Content="C11" HorizontalAlignment="Left" Margin="859,264,0,0" VerticalAlignment="Top" Height="26" Width="30"/>
+        <TextBox x:Name="textBox12_Copy" HorizontalAlignment="Left" Margin="919,267,0,0" Text="-1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" Height="18"/>
+        <Label x:Name="label17_Copy" Content="C22" HorizontalAlignment="Left" Margin="859,287,0,0" VerticalAlignment="Top" Height="26" Width="30"/>
+        <TextBox x:Name="textBox13_Copy" HorizontalAlignment="Left" Margin="919,290,0,0" Text="-1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" Height="18"/>
+        <Label x:Name="label18_Copy" Content="C12&gt;0" HorizontalAlignment="Left" Margin="859,332,0,0" VerticalAlignment="Top" Height="26" Width="45"/>
+        <TextBox x:Name="textBox14_Copy" HorizontalAlignment="Left" Margin="919,335,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="120"/>
+        <Label x:Name="label19_Copy" Content="C21&gt;0" HorizontalAlignment="Left" Margin="859,355,0,0" VerticalAlignment="Top" Height="26" Width="45"/>
+        <TextBox x:Name="textBox15_Copy" HorizontalAlignment="Left" Margin="919,358,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="100"/>
+        <Label x:Name="label20_Copy" Content="C12(пропуск цели) &gt;&gt; С21(ложная тревога)" HorizontalAlignment="Left" Margin="859,309,0,0" VerticalAlignment="Top" Height="26" Width="251"/>
+        <Label x:Name="label21_Copy" Content="p1" HorizontalAlignment="Left" Margin="859,432,0,0" VerticalAlignment="Top" Height="26" Width="24"/>
+        <Label x:Name="label25_Copy" Content="p2" HorizontalAlignment="Left" Margin="859,452,0,0" VerticalAlignment="Top" Height="26" Width="24"/>
+        <TextBox x:Name="textBox16_Copy" HorizontalAlignment="Left" Margin="919,435,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="0.95"/>
+        <TextBox x:Name="textBox19_Copy" HorizontalAlignment="Left" Margin="919,458,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18" Text="0.05"/>
+        <Label x:Name="label22_Copy" Content="Априорное значения задаваемое пользователем" HorizontalAlignment="Left" Margin="859,386,0,0" VerticalAlignment="Top" Height="26" Width="282"/>
+        <Label x:Name="label23_Copy" Content="Цены рисков" HorizontalAlignment="Left" Margin="861,238,0,0" VerticalAlignment="Top" Height="26" Width="83"/>
+        <Label x:Name="label24_Copy" Content="Y(пор.)" HorizontalAlignment="Left" Margin="859,529,0,0" VerticalAlignment="Top" Height="26" Width="47"/>
+        <Button x:Name="button4" Content="Рассчитать пороговое значение из min числа ош. решений" HorizontalAlignment="Left" Margin="845,565,0,0" VerticalAlignment="Top" Click="button4_Click" Height="20" Width="331"/>
+        <Label x:Name="label10_Copy" Content="p1 &gt;&gt; p2" HorizontalAlignment="Left" Margin="859,406,0,0" VerticalAlignment="Top" Height="26" Width="60"/>
+        <Label x:Name="label11_Copy" Content="Y(пор.)" HorizontalAlignment="Left" Margin="861,596,0,0" VerticalAlignment="Top" Height="26" Width="47"/>
+        <Label x:Name="label12_Copy" Content="f(y/S)" HorizontalAlignment="Left" Margin="855,217,0,0" VerticalAlignment="Top" FontSize="14" Height="29" Width="42"/>
         <Label x:Name="label13" Content="Критерий Зигерта-Котельникова" HorizontalAlignment="Left" Margin="400,438,0,0" VerticalAlignment="Top" Height="26" Width="192"/>
         <Label x:Name="label26" Content="X" HorizontalAlignment="Left" Margin="406,464,0,0" VerticalAlignment="Top" Height="26" Width="16"/>
         <Label x:Name="label27" Content="Y" HorizontalAlignment="Left" Margin="406,490,0,0" VerticalAlignment="Top" Height="26" Width="16"/>
@@ -85,27 +85,29 @@
         <Button x:Name="button6" Content="Проверить Y" HorizontalAlignment="Left" Margin="676,496,0,0" VerticalAlignment="Top" Click="button6_Click" Height="20" Width="94"/>
         <Label x:Name="label28" Content="принадлежит" HorizontalAlignment="Left" Margin="554,464,0,0" VerticalAlignment="Top" Height="26" Width="84"/>
         <Label x:Name="label29" Content="принадлежит" HorizontalAlignment="Left" Margin="554,490,0,0" VerticalAlignment="Top" Height="26" Width="84"/>
-        <Menu x:Name="menu" HorizontalAlignment="Left" Height="20" Margin="0,0,0,0" VerticalAlignment="Top" Width="1912" Grid.ColumnSpan="3">
-            <Button Content="Указания к лабораторной работе" Click="Button_Click_1" />
-            <Button Content="Сведения о программе" Click="Button_Click_2"/>
-            <Button Content="Руководство пользователя" Click="Button_Click_3"/>
-            <Button x:Name="button7" Content="Выйти из программы" Click="button7_Click"/>
+        <Menu x:Name="menu" HorizontalAlignment="Left" Height="27" Margin="0,0,0,0" VerticalAlignment="Top" Width="1912" Grid.ColumnSpan="3">
+            <Button Content="Указания к лабораторной работе" Click="Button_Click_1" Height="24"/>
+            <Button Content="Сведения о программе" Click="Button_Click_2" Height="24"/>
+            <Button Content="Руководство пользователя" Click="Button_Click_3" Height="24"/>
+            <Button x:Name="button7" Content="Выйти из программы" Click="button7_Click" Height="24"/>
         </Menu>
-        <TextBox x:Name="textBox10" HorizontalAlignment="Left" Height="23" Margin="85,524,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
-        <TextBox x:Name="textBox11" HorizontalAlignment="Left" Height="23" Margin="85,588,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
-        <TextBox x:Name="textBox17" HorizontalAlignment="Left" Height="23" Margin="924,521,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
-        <TextBox x:Name="textBox21" HorizontalAlignment="Left" Height="23" Margin="924,588,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <TextBox x:Name="textBox10" HorizontalAlignment="Left" Height="23" Margin="85,528,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <TextBox x:Name="textBox11" HorizontalAlignment="Left" Height="23" Margin="85,592,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <TextBox x:Name="textBox17" HorizontalAlignment="Left" Height="23" Margin="924,532,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <TextBox x:Name="textBox21" HorizontalAlignment="Left" Height="23" Margin="924,599,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
         <TextBox x:Name="textBox22" HorizontalAlignment="Left" Height="18" Margin="638,468,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="31" IsEnabled="False"/>
         <TextBox x:Name="textBox23" HorizontalAlignment="Left" Height="18" Margin="638,495,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="31" IsEnabled="False"/>
         <DataGrid x:Name="pointGrid" ItemsSource="{Binding}" AlternatingRowBackground="LightBlue" AlternationCount="2" Margin="10,650,758,10" />
         <DataGrid x:Name="pointGrid_Copy" ItemsSource="{Binding}" AlternatingRowBackground="LightBlue" AlternationCount="2" Margin="760,645,9,10" />
-        <Label x:Name="label14" Content="f(x,y/S2)&#xD;&#xA;" Margin="760,611,293,312"/>
-        <Label x:Name="label15" Content="f(x,y/S1)&#xD;&#xA;" Margin="10,613,1000,307"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="172" Margin="2,25,0,0" VerticalAlignment="Top" Width="436"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="172" Margin="443,25,0,0" VerticalAlignment="Top" Width="417"/>
+        <Label x:Name="label14" Content="f(x,y/S2)&#xD;&#xA;" Margin="760,617,293,305"/>
+        <Label x:Name="label15" Content="f(x,y/S1)&#xD;&#xA;" Margin="10,617,1017,305"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="172" Margin="2,28,0,0" VerticalAlignment="Top" Width="436"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="172" Margin="443,28,0,0" VerticalAlignment="Top" Width="417"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="90" Margin="400,438,0,0" VerticalAlignment="Top" Width="383"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="404" Margin="2,209,0,0" VerticalAlignment="Top" Width="354"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="411" Margin="829,202,0,0" VerticalAlignment="Top" Width="362"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="404" Margin="2,213,0,0" VerticalAlignment="Top" Width="354"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="411" Margin="829,213,0,0" VerticalAlignment="Top" Width="362"/>
+        <Label x:Name="label30" Content="Точность вычислений" HorizontalAlignment="Left" Margin="406,262,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox24" HorizontalAlignment="Left" Height="23" Margin="549,265,0,0" TextWrapping="Wrap" Text="0.01" VerticalAlignment="Top" Width="120"/>
 
 
     </Grid>

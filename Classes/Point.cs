@@ -17,9 +17,9 @@ namespace TPR2
         // мат. ожидание по Y
         public double mu_y;
         // среднеквадратическое отклонение X
-        public double sigma_x { get; set; }
+        public double sigma_x;
         // среднеквадратическое отклонение Y
-        public double sigma_y { get; set; }
+        public double sigma_y;
 		NormalRandom nr;
 		public Point(double m_x, double s_x, double m_y, double s_y, NormalRandom norm_rand)
         {
