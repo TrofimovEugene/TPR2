@@ -74,12 +74,14 @@ namespace TPR2.Classes
 				return por_val_2;
 			}
 		}
+		/* функция нахождения порогового значения по условию минимального числа ошибочных решений*/
 		public static double DetermThresholdValuesMinNumberOfErroneousDecisions(List<Point> f_s1, List<Point> f_s2, double p_1, double p_2, bool x_or_y,
 			double sigma_1, double sigma_2, double mu_1, double mu_2, double eps)
 		{
 			double otnosh_f = 0.0;
 			double otnosh_C = 0.0;
 			double por_value = 0.0;
+			otnosh_C = p_2 / p_1;
 			List<Point> points = new List<Point>();
 			points = f_s1;
 			points.AddRange(f_s2);
@@ -97,10 +99,9 @@ namespace TPR2.Classes
 						}
 					}
 				}
-				for (int i = 0; i < points.Count; i++)
+				for(int i = 0; i < points.Count; i++)
 				{
 					otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].x, sigma_1, mu_1) / Math_TPR.func_der_Gauss(points[i].x, sigma_2, mu_2));
-					otnosh_C = p_2 / p_1;
 					if (Math.Abs(otnosh_f - otnosh_C) < eps)
 					{
 						por_value = points[i].x;
@@ -125,7 +126,6 @@ namespace TPR2.Classes
 				for (int i = 0; i < points.Count; i++)
 				{
 					otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].y, sigma_1, mu_1) / Math_TPR.func_der_Gauss(points[i].y, sigma_2, mu_2));
-					otnosh_C = p_2 / p_1;
 					if (Math.Abs(otnosh_f - otnosh_C) < eps)
 					{
 						por_value = points[i].y;
@@ -139,9 +139,9 @@ namespace TPR2.Classes
 		public static double CalculationOfCorrelationCoefficient(List<Point> set_points, double mu_x, double mu_y, double sigma_x, double sigma_y)
 		{
 			double result = 0.0;
-			for (int i = 0; i < set_points.Count; i++)
+			foreach (var t in set_points)
 			{
-				result += (set_points[i].x - mu_x) * (set_points[i].y - mu_y);
+				result += (t.x - mu_x) * (t.y - mu_y);
 			}
 			result = result / (set_points.Count - 1);
 			result = result / (sigma_x * sigma_y);
@@ -187,16 +187,7 @@ namespace TPR2.Classes
 						// f`(x/S1)/f`(x/S2)
 						otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].x, sigma_1, mu_1) / Math_TPR.func_der_Gauss(points[i].x, sigma_2, mu_2));
 						otnosh_C = p_2 / p_1;
-						if (otnosh_f >= otnosh_C)
-						{
-							result = "S1";
-							break;
-						}
-						else
-						{
-							result = "S2";
-							break;
-						}
+						return otnosh_f >= otnosh_C ? "S1" : "S2";
 					}
 				}
 			}
@@ -221,16 +212,7 @@ namespace TPR2.Classes
 						// f`(y/S1)/f`(y/S2)
 						otnosh_f = Math.Abs(Math_TPR.func_der_Gauss(points[i].y, sigma_1, mu_1) / Math_TPR.func_der_Gauss(points[i].y, sigma_2, mu_2));
 						otnosh_C = p_2 / p_1;
-						if (otnosh_f >= otnosh_C)
-						{
-							result = "S1";
-							break;
-						}
-						else
-						{
-							result = "S2";
-							break;
-						}
+						return otnosh_f >= otnosh_C ? "S1" : "S2";
 					}
 				}
 			}
@@ -270,17 +252,17 @@ namespace TPR2.Classes
 		{
 			var uniformGridDataSeries3D = new UniformGridDataSeries3D<double>(100, 100)
 			{
-				StartX = x_cen - distance * 2,
-				StepX = (4 * distance) / 100,
-				StartZ = y_cen - distance * 2,
-				StepZ = (4 * distance) / 100,
+				StartX = x_cen - distance * 3,
+				StepX = (6 * distance) / 100,
+				StartZ = y_cen - distance * 3,
+				StepZ = (6 * distance) / 100,
 			};
 			for (int x = 0; x < 100; x++)
 			{
 				for (int z = 0; z < 100; z++)
 				{
-					double xVal = x / (double)100 * (4 * distance) - Math.Abs(x_cen - distance * 2);
-					double zVal = z / (double)100 * (4 * distance) - Math.Abs(y_cen - distance * 2);
+					double xVal = x / (double)100 * (6 * distance) - Math.Abs(x_cen - distance * 3);
+					double zVal = z / (double)100 * (6 * distance) - Math.Abs(y_cen - distance * 3);
 					double y = Math_TPR.func_Gauss_XY(xVal, zVal, sigma_x, sigma_y, mu_x, mu_y, ro);
 					uniformGridDataSeries3D[z, x] = y;
 				}

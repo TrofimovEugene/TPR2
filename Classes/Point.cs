@@ -12,23 +12,9 @@ namespace TPR2
         public double x { get; set; }
 		public double y { get; set; }
 		public double z { get; set; }
-        // мат. ожидание по X
-        public double mu_x;
-        // мат. ожидание по Y
-        public double mu_y;
-        // среднеквадратическое отклонение X
-        public double sigma_x;
-        // среднеквадратическое отклонение Y
-        public double sigma_y;
-		NormalRandom nr;
 		public Point(double m_x, double s_x, double m_y, double s_y, NormalRandom norm_rand)
         {
-            mu_x = m_x;
-            sigma_x = s_x;
-            mu_y = m_y;
-            sigma_y = s_y;
-            nr = norm_rand;
-            Set_Value();
+            Set_Value(s_x, m_x, s_y, m_y, norm_rand);
         }
 		public Point(double x, double y, double z)
 		{
@@ -37,7 +23,7 @@ namespace TPR2
 			this.z = z;
 		}
         // инициализация значений
-        void Set_Value()
+        void Set_Value(double sigma_x, double mu_x, double sigma_y, double mu_y, NormalRandom nr)
         {
             x = nr.NextDouble() * sigma_x + mu_x;
             y = nr.NextDouble() * sigma_y + mu_y;

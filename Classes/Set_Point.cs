@@ -16,6 +16,7 @@ namespace TPR2
         double sigma_x;
         // среднеквадратическое отклонение Y
         double sigma_y;
+	// количество точек
         int count_point;
         NormalRandom normalRandom;
         List<Point> set_of_Point = new List<Point>();

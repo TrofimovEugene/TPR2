@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Xps.Packaging;
 
@@ -10,16 +11,14 @@ namespace TPR2.Forms
 	/// </summary>
 	public partial class InformationAboutProgram : Window
 	{
+
 		public InformationAboutProgram()
 		{
 			InitializeComponent();
 			try
 			{
-				string p = Directory.GetCurrentDirectory();
-				p = p.Replace("bin", "");
-				p = p.Replace("Debug", "");
-				p += @"Files\InformationAboutProgram.xps";
-				XpsDocument doc = new XpsDocument(p, FileAccess.Read);
+				string RunningPath = Environment.CurrentDirectory;
+				XpsDocument doc = new XpsDocument(RunningPath, FileAccess.Read);
 				documentViewer.Document = doc.GetFixedDocumentSequence();
 				doc.Close();
 			} catch (Exception ex)

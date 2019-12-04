@@ -15,11 +15,8 @@ namespace TPR2
 			InitializeComponent();
 			try
 			{
-				string p = Directory.GetCurrentDirectory();
-				p = p.Replace("bin", "");
-				p = p.Replace("Debug", "");
-				p += @"Files\Theory.xps";
-				XpsDocument doc = new XpsDocument(p, FileAccess.Read);
+				string RunningPath = Environment.CurrentDirectory;
+				XpsDocument doc = new XpsDocument(RunningPath, FileAccess.Read);
 				documentViewer.Document = doc.GetFixedDocumentSequence();
 				doc.Close();
 			} catch (Exception ex)
