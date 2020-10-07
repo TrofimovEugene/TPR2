@@ -15,8 +15,8 @@ namespace TPR2
 			InitializeComponent();
 			try
 			{
-				string RunningPath = Environment.CurrentDirectory;
-				XpsDocument doc = new XpsDocument(RunningPath, FileAccess.Read);
+				var runningPath = Environment.CurrentDirectory + @"\Theory.xps";
+				var doc = new XpsDocument(runningPath, FileAccess.Read);
 				documentViewer.Document = doc.GetFixedDocumentSequence();
 				doc.Close();
 			} catch (Exception ex)

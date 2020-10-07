@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Xps.Packaging;
 
@@ -17,8 +16,8 @@ namespace TPR2.Forms
 			InitializeComponent();
 			try
 			{
-				string RunningPath = Environment.CurrentDirectory;
-				XpsDocument doc = new XpsDocument(RunningPath, FileAccess.Read);
+				string runningPath = Environment.CurrentDirectory + @"\InformationAboutProgram.xps";
+				XpsDocument doc = new XpsDocument(runningPath, FileAccess.Read);
 				documentViewer.Document = doc.GetFixedDocumentSequence();
 				doc.Close();
 			} catch (Exception ex)

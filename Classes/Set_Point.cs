@@ -6,62 +6,62 @@ using System.Threading.Tasks;
 
 namespace TPR2
 {
-    public class Set_Point
+    public class SetPoint
     {
         // мат. ожидание по X
-        double mu_x;
+        double _muX;
         // мат. ожидание по Y
-        double mu_y;
+        double _muY;
         // среднеквадратическое отклонение X
-        double sigma_x;
+        double _sigmaX;
         // среднеквадратическое отклонение Y
-        double sigma_y;
+        double _sigmaY;
 	// количество точек
-        int count_point;
-        NormalRandom normalRandom;
-        List<Point> set_of_Point = new List<Point>();
-        public Set_Point(double mu_x_c, double sigma_x_c, double mu_y_c, double sigma_y_c, int n, NormalRandom normal)
+        int _countPoint;
+        NormalRandom _normalRandom;
+        List<Point> _setOfPoint = new List<Point>();
+        public SetPoint(double muXC, double sigmaXC, double muYC, double sigmaYC, int n, NormalRandom normal)
         {
-            mu_x = mu_x_c;
-            sigma_x = sigma_x_c;
-            mu_y = mu_y_c;
-            sigma_y = sigma_y_c;
-            count_point = n;
-            normalRandom = normal;
+            _muX = muXC;
+            _sigmaX = sigmaXC;
+            _muY = muYC;
+            _sigmaY = sigmaYC;
+            _countPoint = n;
+            _normalRandom = normal;
             Set_Value_Point();
         }
         // инициализация значений
         void Set_Value_Point()
         {
-            for (int i = 0; i < count_point; i++)
+            for (int i = 0; i < _countPoint; i++)
             {
-                set_of_Point.Add(new Point(mu_x, sigma_x, mu_y, sigma_y, normalRandom));
+                _setOfPoint.Add(new Point(_muX, _sigmaX, _muY, _sigmaY, _normalRandom));
             }
         }
         // вычисление мат. ожидания X
         public double calculate_Average_Value_x()
         {
-            double result_average_x = 0.0;
-            for (int i = 0; i < count_point; i++)
+            double resultAverageX = 0.0;
+            for (int i = 0; i < _countPoint; i++)
             {
-                result_average_x += set_of_Point[i].x;
+                resultAverageX += _setOfPoint[i].X;
             }
-            return result_average_x / count_point;
+            return resultAverageX / _countPoint;
         }
         // вычисление мат. ожидания Y
         public double calculate_Average_Value_y()
         {
-            double result_average_y = 0.0;
-            for (int i = 0; i < count_point; i++)
+            double resultAverageY = 0.0;
+            for (int i = 0; i < _countPoint; i++)
             {
-                result_average_y += set_of_Point[i].y;
+                resultAverageY += _setOfPoint[i].Y;
             }
-            return result_average_y / count_point;
+            return resultAverageY / _countPoint;
         }
         // вернуть список значений
         public List<Point> get_list_point()
         {
-            return set_of_Point;
+            return _setOfPoint;
         }
     }
 }

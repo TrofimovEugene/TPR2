@@ -9,24 +9,24 @@ namespace TPR2
     // класс, описывающий случаную точку
     public class Point
     {
-        public double x { get; set; }
-		public double y { get; set; }
-		public double z { get; set; }
-		public Point(double m_x, double s_x, double m_y, double s_y, NormalRandom norm_rand)
+        public double X { get; set; }
+		public double Y { get; set; }
+		public double Z { get; set; }
+		public Point(double mX, double sX, double mY, double sY, NormalRandom normRand)
         {
-            Set_Value(s_x, m_x, s_y, m_y, norm_rand);
+            Set_Value(sX, mX, sY, mY, normRand);
         }
 		public Point(double x, double y, double z)
 		{
-			this.x = x;
-			this.y = y;
-			this.z = z;
+			this.X = x;
+			this.Y = y;
+			this.Z = z;
 		}
         // инициализация значений
-        void Set_Value(double sigma_x, double mu_x, double sigma_y, double mu_y, NormalRandom nr)
+        void Set_Value(double sigmaX, double muX, double sigmaY, double muY, NormalRandom nr)
         {
-            x = nr.NextDouble() * sigma_x + mu_x;
-            y = nr.NextDouble() * sigma_y + mu_y;
+            X = nr.NextDouble() * sigmaX + muX;
+            Y = nr.NextDouble() * sigmaY + muY;
         }
     }
 }
